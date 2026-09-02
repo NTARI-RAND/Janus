@@ -1,0 +1,7 @@
+# Prior instruments are stored byte-for-byte. Some generated PDFs are
+# ASCII-heavy enough that Git guesses "text"; left alone, end-of-line
+# normalization would rewrite their byte streams.
+*.pdf  binary
+*.docx binary
+*.png  binary
+*.md   text eol=lf
