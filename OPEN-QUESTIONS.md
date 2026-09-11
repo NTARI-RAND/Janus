@@ -2,7 +2,7 @@
 
 The living open-questions document for the Janus Facing Architecture, per the practice carried forward in the [2026-08-24 concept triage](jfa-concept-triage-2026-08-24.md). A stale document here means the project has stopped describing itself honestly. Each entry carries a status and names the constraints it inherits.
 
-Two questions are currently open: readmission after trust suspension (entry 7, resolved in draft pending adoption of the bylaws amendment) and sybil resistance in the governance franchise (entry 8). The rest were resolved as raised; their record follows.
+Three questions are currently open: readmission after trust suspension (entry 7, resolved in draft pending adoption of the bylaws amendment), sybil resistance in the governance franchise (entry 8), and the pricing of the transport fee (entry 9). The rest were resolved as raised; their record follows.
 
 ## 1. Contestability
 
@@ -75,4 +75,20 @@ Candidate directions, none adopted: witness-attested distinctness at the record 
 What the gap can still reach is the Governance delegate itself, and with it the office of the Vice President and the disposition of expulsion referrals — the powers of Article XII rather than the powers of the membership. The bylaws draft also puts the amendment of the bylaws themselves within prosumer-member reach (bylaws §15.1), which is the one place the gap touches the structure rather than an office; whether that vote is cast directly or channeled through delegates is unsettled in the draft and is the open half of this question. The immediate recall of §6.8 is the standing check, and it is exercised by the same roll a sybil attack would have captured — which is the part that does not resolve itself.
 
 **Inherits:** privacy floor (line 7, entry 2); platform-scoped non-portable identifiers (bylaws §9.10(f)); one member, one vote (bylaws §3.4); recallable delegates, one per federation (bylaws §5.3); witness minimum (entry 4).
+## 9. Pricing the transport fee
 
+**Status:** open (2026-09-11)
+
+The Record layer now cites a third sovereign spend — the orchestrator's transport fee — escrowed with the trade and released by the same citation. That much is settled: the fee follows delivery, the orchestrator cannot release its own, and it settles in the home ledger so no value crosses a community boundary. What the fee *is* remains open.
+
+Whether it is a fixed offer or may be metered per byte, per hop or per witness. A fixed offer is legible and cheap to verify; metering prices a long carry honestly but gives the orchestrator a quantity it reports about itself, which is the shape the six-fold witnessing exists to avoid.
+
+Whether a trade between prosumers of two communities splits the fee across both home ledgers or charges the initiating side. Splitting spreads the cost the way the benefit falls; charging the initiator keeps one settlement in one ledger and avoids a second escrow that can fail independently.
+
+Whether the paid witnesses earn credit under this same six-fold rule, and if so who witnesses them. Applied naively the rule recurses without bottom. Either witnessing is compensated substrate work already covered by the existing record-layer provision, or it needs a terminating case that has not been written.
+
+Whether the operator's witness slot is mandatory, given operators are insulated from the substrate by design. An operator that must attest to a carry it cannot observe is either rubber-stamping or reaching into a layer the architecture keeps it out of.
+
+What the default commitment window is before escrow reverts. Too short and prosumer hardware with churn, sleep and relay fails honest carries; too long and capacity sits escrowed against a carry nobody will complete.
+
+**Inherits:** value stays home and cross-community exchange as paired sovereign spends (lines 3–5); privacy floor (line 7, entry 2); no chokepoint (line 11); witness minimum (entry 4); witnessing as compensated substrate work (entry 6).

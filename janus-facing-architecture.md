@@ -32,7 +32,7 @@ Exchanges instructions and orders across a distributed compute/storage market op
 
 ### Orchestrator Tier
 
-Federated prosumer compute power creating more options across geography.
+Federated prosumer compute power creating more options across geography. Orchestrators publish transport offers into the substrate market, each naming a fee, a delivery commitment and a public key; any platform may select any reachable orchestrator, so a dominant carrier is undercut rather than regulated. Transport is delivery, not execution: an orchestrator carries signed spends to the witness set and returns attestations, is never relied upon to determine whether an exchange occurred, and may be lossy and retry-based.
 
 ### Frontend Tier
 
@@ -43,6 +43,8 @@ E&I interface for prosuming compute/storage.
 A compensated function of the substrate, recording and serving dialog between E&I and Covenant layers for the public.
 
 The record of what happened is held six ways. Each party to a transaction keeps a record of their own; the operator keeps its own; two witnesses keep their own; and the hashes are committed to one public chain, distributed across the substrate — the record for everyone who was neither transactor, witness, nor operator. The chain is append-only: harm is forgiven by annotation, never by erasing. A platform must have at least two independent witnesses; with fewer, a deployment must label itself unfederated. 
+
+A cross-community exchange remains two sovereign spends. The citation that settles it carries a third: the orchestrator's transport fee, escrowed with the trade at initiation and released by that same citation. Release is joint and all-or-nothing — if delivery is not attested within the offer's commitment window, all three spends revert — and the orchestrator's own attestation does not count toward the threshold that releases its own fee. The fee settles in the home ledger of the prosumers whose capacity was carried; it does not cross a community boundary. The credit it earns is held the same six ways, cited by key.
 
 ### Protocol Tier
 
@@ -98,7 +100,7 @@ Each economic or information platform has a protocol designed for the exchange t
 
 ### Orchestrator Tier
 
-E&I must run on revokable hardware obtained and recorded by the substrate layer
+E&I must run on revokable hardware obtained and recorded by the substrate layer. A platform needs no orchestrator of its own: it selects one from the substrate market and pays transport out of the trade
 
 ### Frontend Tier
 
