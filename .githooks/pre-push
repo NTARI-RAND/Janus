@@ -1,0 +1,37 @@
+#!/bin/sh
+#
+# Run the JFA conformance suite before anything reaches the remote.
+#
+# Install once, in your clone:
+#
+#     git config core.hooksPath .githooks
+#
+# This is a convenience, not a gate. Hooks live outside the repository's
+# history unless you run that command, and `git push --no-verify` skips them.
+# The gate is the Conformance check on the pull request.
+
+set -u
+
+for py in python3 python py; do
+    if command -v "$py" >/dev/null 2>&1; then
+        PY="$py"
+        break
+    fi
+done
+
+if [ -z "${PY:-}" ]; then
+    echo "pre-push: no python interpreter found; skipping conformance suite" >&2
+    exit 0
+fi
+
+if ! "$PY" jfa-conformance-suite.py; then
+    echo "" >&2
+    echo "Push blocked: the conformance suite failed." >&2
+    echo "" >&2
+    echo "The document has drifted from the invariant registry. Fix it, or run" >&2
+    echo "  git push --no-verify" >&2
+    echo "to push anyway — the pull request will fail the same check." >&2
+    exit 1
+fi
+
+exit 0
