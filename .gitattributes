@@ -5,3 +5,8 @@
 *.docx binary
 *.png  binary
 *.md   text eol=lf
+
+# The hook runs in a POSIX shell and the workflow on a Linux runner. CRLF
+# would leave the hook with a bad interpreter line and unrunnable there.
+.githooks/* text eol=lf
+*.yml       text eol=lf

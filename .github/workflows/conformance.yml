@@ -1,0 +1,27 @@
+name: Conformance
+
+# No paths filter, deliberately. This check is a required status check on main,
+# and a required check that never runs leaves a pull request blocked forever.
+# The suite takes well under a second, so running it on every pull request
+# costs nothing and always reports.
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  conformance:
+    name: conformance
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Run the JFA conformance suite
+        run: python jfa-conformance-suite.py
