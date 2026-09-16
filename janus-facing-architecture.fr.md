@@ -1,4 +1,4 @@
-> Traduction communautaire (version préliminaire) — Politique P2-002 de NTARI, Diffusion mondiale multilingue. Source : janus-facing-architecture.md (original en anglais, instantané du 2026-08-31). Version préliminaire communautaire assistée par machine, en attente de révision par le mainteneur régional conformément à P2-002 §3.1. Les spécifications techniques centrales demeurent en anglais conformément au §2.2.
+> Traduction communautaire (version préliminaire) — Politique P2-002 de NTARI, Diffusion mondiale multilingue. Source : janus-facing-architecture.md (original en anglais, instantané du 2026-09-08). Version préliminaire communautaire assistée par machine, en attente de révision par le mainteneur régional conformément à P2-002 §3.1. Les spécifications techniques centrales demeurent en anglais conformément au §2.2.
 >
 > Vous avez repéré une erreur dans cette traduction ? Votre correction est une
 > contribution bienvenue et appréciée : créez un fork du dépôt du projet NTARI
@@ -35,6 +35,8 @@ C'est le matériel où tout se produit, détenu par des prosommateurs de process
 ### Niveau protocole
 
 Échange instructions et ordres sur un marché distribué de calcul et de stockage, exploité sur des ordinateurs grand public hébergés dans des domiciles, des bureaux et des entrepôts, ainsi que sur du matériel industriel reconverti.
+
+Les nœuds rejoignent ce marché par des réseaux superposés chiffrés (overlays) et une interrogation sortante (polling), sans exiger de ports entrants ouverts ni d'adresse statique ; la connexion telle qu'un fournisseur résidentiel la livre suffit. La ligne 11 en dépend : un substrat qui ne fonctionnerait que là où un fournisseur autorise le service entrant porterait un point d'étranglement chez chaque fournisseur.
 
 ### Niveau orchestrateur
 
