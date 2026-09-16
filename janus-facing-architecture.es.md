@@ -1,4 +1,4 @@
-> Traducción comunitaria (borrador) — Política P2-002 de NTARI, Difusión Multilingüe Global. Fuente: janus-facing-architecture.md (original en inglés, instantánea del 2026-08-31). Borrador comunitario asistido por máquina, pendiente de revisión por el mantenedor regional conforme a P2-002 §3.1. Las especificaciones técnicas centrales permanecen en inglés conforme al §2.2.
+> Traducción comunitaria (borrador) — Política P2-002 de NTARI, Difusión Multilingüe Global. Fuente: janus-facing-architecture.md (original en inglés, instantánea del 2026-09-08). Borrador comunitario asistido por máquina, pendiente de revisión por el mantenedor regional conforme a P2-002 §3.1. Las especificaciones técnicas centrales permanecen en inglés conforme al §2.2.
 >
 > ¿Encontraste un error en esta traducción? Tu corrección es una contribución
 > bienvenida y valorada: haz un fork del repositorio del proyecto de NTARI y
@@ -35,6 +35,8 @@ Es el hardware donde todo ocurre, propiedad de prosumidores de CPU, GPU, impreso
 ### Nivel de protocolo
 
 Intercambia instrucciones y órdenes a través de un mercado distribuido de cómputo y almacenamiento operado en computadoras de consumo alojadas en hogares, oficinas y depósitos, así como en equipo industrial reacondicionado.
+
+Los nodos se incorporan a ese mercado mediante superposiciones cifradas (overlays) y sondeo saliente (polling), sin requerir puertos de entrada abiertos ni una dirección estática; basta la conexión tal como la entrega un proveedor residencial. La línea 11 depende de ello: un sustrato que solo funcionara donde un proveedor permite el servicio entrante cargaría con un punto de estrangulamiento en cada proveedor.
 
 ### Nivel de orquestador
 

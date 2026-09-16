@@ -1,4 +1,4 @@
-> Tradução comunitária (rascunho) — Política P2-002 da NTARI, Difusão Multilíngue Global. Fonte: janus-facing-architecture.md (original em inglês, instantâneo de 2026-08-31). Rascunho comunitário assistido por máquina, pendente de revisão pelo mantenedor regional conforme P2-002 §3.1. As especificações técnicas centrais permanecem em inglês conforme o §2.2.
+> Tradução comunitária (rascunho) — Política P2-002 da NTARI, Difusão Multilíngue Global. Fonte: janus-facing-architecture.md (original em inglês, instantâneo de 2026-09-08). Rascunho comunitário assistido por máquina, pendente de revisão pelo mantenedor regional conforme P2-002 §3.1. As especificações técnicas centrais permanecem em inglês conforme o §2.2.
 >
 > Encontrou um erro nesta tradução? Sua correção é uma contribuição bem-vinda e
 > valorizada: faça um fork do repositório do projeto da NTARI e abra um pull
@@ -35,6 +35,8 @@ Este é o documento oficial, sob a curadoria do Network Theory Applied Research 
 ### Nível de protocolo
 
 Troca instruções e ordens através de um mercado distribuído de computação e armazenamento, operado em computadores de consumo hospedados em residências, escritórios e depósitos, bem como em equipamentos industriais reaproveitados.
+
+Os nós ingressam nesse mercado por meio de sobreposições cifradas (overlays) e sondagem de saída (polling), sem exigir portas de entrada abertas nem endereço estático; basta a conexão tal como um provedor residencial a entrega. A linha 11 depende disso: um substrato que só funcionasse onde um provedor permite serviço de entrada carregaria um ponto de estrangulamento em cada provedor.
 
 ### Nível de orquestrador
 

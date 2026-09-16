@@ -6,7 +6,7 @@
 The prior instrument and its suite are preserved in Historical Docs as
 *-pre-rebuild-2026-08-24.*. Their clause-numbered IDs are retired; this
 suite's registry cites the new document's sections by name and its lines
-by number (L1-L11). Where an invariant descends from the prior registry,
+by number (L1-L12). Where an invariant descends from the prior registry,
 the old ID is noted for lineage. Which concepts carried, changed, or
 retired is recorded in jfa-concept-triage-2026-08-24.md.
 
@@ -94,6 +94,9 @@ REGISTRY = [
               "instrument", "governance instrument assigns each layer's discipline by exit cost (was 2.3)"),
     Invariant("P-lean-code", "principles", "auditable whole",
               "implementation", "protocol repo: dependency audit in CI - standard library only; copyleft check (was 8.2)"),
+    # Substrate layer — the residential posture
+    Invariant("SUB-no-inbound-requirement", "substrate", "without requiring open inbound ports or a static address",
+              "implementation", "node tests: a node registers, heartbeats, polls for work and reports over outbound connections only - no listening port, no static IP, behind NAT/CGNAT and dynamic addressing; the residential case of L11 (new 2026-09-08)"),
     # Record layer — the topology
     Invariant("REC-six-holders", "record", "held six ways",
               "implementation", "record tests: each transactor, the operator, and both witnesses keep records beside the chain (was REC-four-holders; recounted 2026-08-27)"),

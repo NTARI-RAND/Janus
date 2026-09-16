@@ -18,6 +18,7 @@ and protocol.
 | **Unresolved questions** | [OPEN-QUESTIONS.md](OPEN-QUESTIONS.md) |
 | **Concepts carried from prior instruments** | [jfa-concept-triage-2026-08-24.md](jfa-concept-triage-2026-08-24.md) |
 | **Executable conformance suite** | [jfa-conformance-suite.py](jfa-conformance-suite.py) |
+| **Substrate under carrier constraints (P1-004, companion paper)** | [P1-004_Substrate-Constraints_v0.1.md](P1-004_Substrate-Constraints_v0.1.md) |
 | **Prior instruments** | [Historical Docs/](Historical%20Docs/) |
 
 The English document is authoritative. Translations are provided for reach, not
@@ -77,7 +78,7 @@ python jfa-conformance-suite.py --project PATH  # check a repo's open-questions 
 Exit code 0 when every executed check passes, 1 otherwise. Run it after any
 edit to the official document.
 
-Of the 25 registered invariants, 3 are bound here at the document layer and 22
+Of the 26 registered invariants, 3 are bound here at the document layer and 23
 are **delegated** — they bind running software or a governance instrument, and
 can only be enforced by tests living beside that code or that instrument. They
 are carried in the registry with stable IDs and reported as delegated and

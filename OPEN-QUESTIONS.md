@@ -2,7 +2,7 @@
 
 The living open-questions document for the Janus Facing Architecture, per the practice carried forward in the [2026-08-24 concept triage](jfa-concept-triage-2026-08-24.md). A stale document here means the project has stopped describing itself honestly. Each entry carries a status and names the constraints it inherits.
 
-Three questions are currently open: readmission after trust suspension (entry 7, resolved in draft pending adoption of the bylaws amendment), sybil resistance in the governance franchise (entry 8), and the pricing of the transport fee (entry 9). The rest were resolved as raised; their record follows.
+Four entries carry open business: readmission after trust suspension (entry 7, resolved in draft pending adoption of the bylaws amendment), sybil resistance in the governance franchise (entry 8), residential substrate constraints (entry 9, resolved in draft with its confidential-execution part still open), and the pricing of the transport fee (entry 10). The rest were resolved as raised; their record follows.
 
 ## 1. Contestability
 
@@ -75,7 +75,18 @@ Candidate directions, none adopted: witness-attested distinctness at the record 
 What the gap can still reach is the Governance delegate itself, and with it the office of the Vice President and the disposition of expulsion referrals — the powers of Article XII rather than the powers of the membership. The bylaws draft also puts the amendment of the bylaws themselves within prosumer-member reach (bylaws §15.1), which is the one place the gap touches the structure rather than an office; whether that vote is cast directly or channeled through delegates is unsettled in the draft and is the open half of this question. The immediate recall of §6.8 is the standing check, and it is exercised by the same roll a sybil attack would have captured — which is the part that does not resolve itself.
 
 **Inherits:** privacy floor (line 7, entry 2); platform-scoped non-portable identifiers (bylaws §9.10(f)); one member, one vote (bylaws §3.4); recallable delegates, one per federation (bylaws §5.3); witness minimum (entry 4).
-## 9. Pricing the transport fee
+
+## 9. Residential substrate constraints
+
+**Status:** resolved in draft (2026-09-08); part (c) open
+
+Raised by the Vice President in the board's September 2026 review of the official document: as a governance and system-specification instrument, the document does not address three physical risks of running substrate on consumer broadband — (a) residential connections carry dynamic addresses, sit behind carrier-grade NAT, and come with terms of service that bar inbound servers; (b) home bandwidth is asymmetric and capped, so heavy container layers and large datasets do not move well; (c) a host operator has physical possession of the machine and can read its memory, and consumer hardware carries no confidential-execution feature to prevent it.
+
+Decided: carrier constraints are treated as a physical, adversarial environment to be routed around in code, not a legal condition to be negotiated away. Lobbying may proceed as a civic matter but is never a dependency of the architecture. Routed at three levels. (a) Resolved in the document — the Substrate protocol tier now states that nodes join the market over encrypted overlays and outbound polling, without requiring open inbound ports or a static address, as the residential case of line 11; registered as SUB-no-inbound-requirement, implementation-bound. The reference protocol already has this shape: its node-side operations poll for work rather than listen. (b) Resolved by design posture in the substrate whitepaper ([P1-004](P1-004_Substrate-Constraints_v0.1.md)): protocol traffic is small by construction under line 7, work ships as sandboxed WebAssembly modules rather than container images, and jobs are spooled locally so a poor uplink delays work rather than losing it. (c) Open: the whitepaper argues for redundant execution across independent hosts with covenant-rated disagreement, plus data minimization, in place of any hardware-enclave requirement, and for attestation as an optional, rated, market-priced capability. Whether that position becomes a registered invariant (a candidate SUB-redundant-execution) is for the board under bylaws §9.16; until then it is argued, not bound. A residual legal question stands with it: whether compensated participation on a residential line engages the non-commercial prong of typical acceptable-use policies, which counsel should review beside the CHC pilot's business-use insurance question.
+
+**Inherits:** no-chokepoint (line 11); privacy floor (line 7, entry 2); lean, auditable code (P-lean-code); witnessing as compensated substrate work (REC-witness-work, entry 6); document-amendment procedure (bylaws §9.2, §9.16); bootstrap recording (bylaws §16.1).
+
+## 10. Pricing the transport fee
 
 **Status:** open (2026-09-11)
 

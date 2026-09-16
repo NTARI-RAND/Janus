@@ -30,6 +30,8 @@ This is the hardware where everything happens, owned by prosumers of CPUs, GPUs,
 
 Exchanges instructions and orders across a distributed compute/storage market operated on consumer grade computers hosted in homes, offices and storage, as well as repurposed industrial equipment.
 
+Nodes join that market over encrypted overlays and outbound polling, without requiring open inbound ports or a static address; the connection as a residential provider ships it is enough. Line 11 depends on this: a substrate that ran only where a provider permits inbound service would carry a chokepoint at every provider.
+
 ### Orchestrator Tier
 
 Federated prosumer compute power creating more options across geography. Orchestrators publish transport offers into the substrate market, each naming a fee, a delivery commitment and a public key; any platform may select any reachable orchestrator, so a dominant carrier is undercut rather than regulated. Transport is delivery, not execution: an orchestrator carries signed spends to the witness set and returns attestations, is never relied upon to determine whether an exchange occurred, and may be lossy and retry-based.

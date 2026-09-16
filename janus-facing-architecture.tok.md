@@ -1,8 +1,8 @@
 # JFA — nasin pi esun kulupu (lipu lili)
 
-> **toki pi lipu ni:** lipu ni li lipu lili tan lipu suli. nasin NTARI "P2-002" li pana e ken tawa ona, tawa kulupu. sina wile e sona ale la, o lukin e lipu suli pi toki Inli: `janus-facing-architecture.md` (tan tenpo suno 2026-08-31). ilo sona li pali e lipu ni. kulupu li lukin ala e ona lon tenpo ni. nasin P2-002 kipisi 3.1 li wile e ni: kulupu o lukin e lipu ni.
+> **toki pi lipu ni:** lipu ni li lipu lili tan lipu suli. nasin NTARI "P2-002" li pana e ken tawa ona, tawa kulupu. sina wile e sona ale la, o lukin e lipu suli pi toki Inli: `janus-facing-architecture.md` (tan tenpo suno 2026-09-08). ilo sona li pali e lipu ni. kulupu li lukin ala e ona lon tenpo ni. nasin P2-002 kipisi 3.1 li wile e ni: kulupu o lukin e lipu ni.
 >
-> **Note:** This is a condensed community rendering produced under NTARI policy P2-002. The complete document is the English original `janus-facing-architecture.md` (snapshot 2026-08-31). Machine-assisted draft pending community review per P2-002 section 3.1. Core technical specifications remain in English per section 2.2.
+> **Note:** This is a condensed community rendering produced under NTARI policy P2-002. The complete document is the English original `janus-facing-architecture.md` (snapshot 2026-09-08). Machine-assisted draft pending community review per P2-002 section 3.1. Core technical specifications remain in English per section 2.2.
 >
 > sina lukin e pakala lon toki ni la o pona e ona: o pana e "pull request"
 > tawa poki lipu NTARI, anu o toki tawa info@ntari.org. pana sina li pona tawa
@@ -20,7 +20,7 @@ JFA li wile pona e ni tan insa: **kulupu pi pali nasin li kulupu pi lukin nasin*
 
 JFA li jo e kipisi luka:
 
-1. **kipisi ilo** (Substrate) — ilo ale. jan li jo e ona lon tomo ona.
+1. **kipisi ilo** (Substrate) — ilo ale. jan li jo e ona lon tomo ona. ilo li toki tawa esun kepeken nasin len; ona li wile ala e lupa open lon tomo. (nasin 11)
 2. **kipisi sona** (Record) — sona pi ijo pini. ona li awen.
 3. **kipisi pi toki awen** (Covenant) — jan li toki e ni tawa jan ante: "mi ike ala e sina."
 4. **kipisi lawa** (Governance) — jan li kama kulupu, li pali e nasin.
