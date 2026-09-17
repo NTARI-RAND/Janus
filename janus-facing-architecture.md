@@ -68,7 +68,7 @@ Compensated compute/record service provided by prosumers on the substrate layer 
 
 A social contract enforced in code, informing flexible expectations for prosumer interactions.
 
-Exit here is dear. Being cast out of the covenant costs a prosumer the one thing that cannot be rebuilt quickly — the count of exchanges at each rating level, earned one witnessed exchange at a time. That price is why expulsion is adjudicated rather than assumed: when apparent breaches occur, a platform operator judges between its own prosumers, a dispute that crosses platforms is adjudicated at the witness layer, and both the prosumers and the operators involved rate the adjudicator on their conduct afterward. The referees stand inside the reputation system they enforce.
+Exit here is dear. Being cast out of the covenant costs a prosumer the one thing that cannot be rebuilt quickly — the count of exchanges at each rating level, earned one witnessed exchange at a time. That price is why expulsion is adjudicated rather than assumed. When apparent breaches of the covenant occur, platform operators adjudicate between their prosumers; disputes that cross platforms are adjudicated at the witness layer. Adjudicators are rated on their conduct by both prosumers/operators involved — the referees stand inside the reputation system they enforce.
 
 ### Protocol Tier
 
