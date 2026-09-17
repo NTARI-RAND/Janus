@@ -58,7 +58,7 @@ Federates records across geography enabling shared reputation and exchange. What
 
 ### Frontend Tier
 
-Compensated compute/record service provided by prosumers: the buying and selling of record storage across the substrate.
+The buying and selling of record storage across the substrate, compensating the prosumers who keep the record.
 
 ## Covenant Layer
 
