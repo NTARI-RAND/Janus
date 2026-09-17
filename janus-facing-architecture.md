@@ -18,13 +18,15 @@ This is the official document, stewarded by Network Theory Applied Research Inst
 
 **Shared Responsibility.** The community that coordinates the economy is the same community that checks the coordination. The two functions are exchanged continuously — never split into rulers and ruled.
 
-**Institutional Discipline.** Each layer is disciplined by the cost of leaving it: where leaving is cheap, competition disciplines; where leaving is dear, members get a vote; where leaving is impossible, decisions stay open to challenge.
+**Institutional Discipline.** Each layer is disciplined by the cost of leaving it — what a member forfeits by walking out, and what a community forfeits by casting someone out. Where leaving is cheap, competition disciplines: the Substrate and Economy & Information layers. Where leaving is dear, members get a vote: the Covenant and Governance layers. Where leaving is impossible, decisions stay open to challenge: the Record layer. Each layer names its own cost below, because that cost is what decides how a fight there gets settled.
 
 **Lean, auditable code.** Protocol software stays small, depends on nothing but its language's standard library, and is auditable whole.
 
 ## Substrate Layer
 
 This is the hardware where everything happens, owned by prosumers of CPUs, GPUs, printers, storage and sensors.
+
+Exit here is cheap, and expulsion costs a prosumer nothing but a connection. An orchestrator that refuses to carry your capacity has not taken your hardware, your balances or your history, and another orchestrator is one published offer away. Quarrels at this layer are therefore not adjudicated: a carry that goes unattested inside its commitment window simply reverts, nobody rules on it, and a carrier that expels or fails too freely is undercut rather than appealed to.
 
 ### Protocol Tier
 
@@ -44,7 +46,9 @@ E&I interface for prosuming compute/storage.
 
 A compensated function of the substrate, recording and serving dialog between E&I and Covenant layers for the public.
 
-The record of what happened is held six ways. Each party to a transaction keeps a record of their own; the operator keeps its own; two witnesses keep their own; and the hashes are committed to one public chain, distributed across the substrate — the record for everyone who was neither transactor, witness, nor operator. The chain is append-only: harm is forgiven by annotation, never by erasing. A platform must have at least two independent witnesses; with fewer, a deployment must label itself unfederated. 
+The record of what happened is held six ways. Each party to a transaction keeps a record of their own; the operator keeps its own; two witnesses keep their own; and the hashes are committed to one public chain, distributed across the substrate — the record for everyone who was neither transactor, witness, nor operator. The chain is append-only: harm is forgiven by annotation, never by erasing. A platform must have at least two independent witnesses; with fewer, a deployment must label itself unfederated.
+
+Nobody can be expelled from the record, and nobody can leave it. What was committed stays committed, and the hash on the public chain outlives the operator, the frontend and the quarrel. Because there is no exit to hold over anyone, no finding here is ever final: a disputed entry is answered by annotation, and the annotation is as permanent as the entry it answers.
 
 A cross-community exchange remains two sovereign spends. The citation that settles it carries a third: the orchestrator's transport fee, escrowed with the trade at initiation and released by that same citation. Release is joint and all-or-nothing — if delivery is not attested within the offer's commitment window, all three spends revert — and the orchestrator's own attestation does not count toward the threshold that releases its own fee. The fee settles in the home ledger of the prosumers whose capacity was carried; it does not cross a community boundary. The credit it earns is held the same six ways, cited by key.
 
@@ -64,13 +68,15 @@ Compensated compute/record service provided by prosumers on the substrate layer 
 
 A social contract enforced in code, informing flexible expectations for prosumer interactions.
 
+Exit here is dear. Being cast out of the covenant costs a prosumer the one thing that cannot be rebuilt quickly — the count of exchanges at each rating level, earned one witnessed exchange at a time. That price is why expulsion is adjudicated rather than assumed. When apparent breaches of the covenant occur, platform operators adjudicate between their prosumers; disputes that cross platforms are adjudicated at the witness layer. Adjudicators are rated on their conduct by both prosumers/operators involved — the referees stand inside the reputation system they enforce.
+
 ### Protocol Tier
 
 A simple assessment, written in executable code for prosumers to rate interactions with one another across the stack.
 
 ### Orchestrator Tier
 
-An API serving compliant assessments across the E&I markets of the stack from substrate prosumers. When apparent breaches of the covenant occur, platform operators adjudicate between their prosumers; disputes that cross platforms are adjudicated at the witness layer. Adjudicators are rated on their conduct by both prosumers/operators involved.
+An API serving compliant assessments across the E&I markets of the stack from substrate prosumers.
 
 ### Frontend Tier
 
@@ -79,6 +85,8 @@ The E&I interface where the API is served.
 ## Governance Layer
 
 This is where and how humans assemble to collaboratively act on the stack.
+
+Exit here is dear, and this is the only layer where expulsion reaches the software itself: a member cast out of the Institute loses the vote that shapes what everyone else runs. So expulsion is never an operator's decision — it is referred and decided by vote under the bylaws, on the record, and the delegates who carry that vote are recallable by the members who seated them.
 
 ### Protocol Tier
 
@@ -95,6 +103,8 @@ The synchronous/asynchronous coordination of members governed by the organizatio
 ## Economy & Information Layer
 
 The E&I layer is hosted on substrate, syndicated with the record layer, and facilitates covenant compliance.
+
+Exit here is cheap by construction. An operator may bar a prosumer from its platform but not from what they built there: positions and history survive any frontend, so the expelled leave with their record intact and their balances still owed. Expulsion is a loss of market, not a loss of standing — and an operator whose terms or credit limit drive prosumers out loses the trade rather than winning the argument.
 
 ### Protocol Tier
 
