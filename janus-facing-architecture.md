@@ -18,7 +18,7 @@ This is the official document, stewarded by Network Theory Applied Research Inst
 
 **Shared Responsibility.** The community that coordinates the economy is the same community that checks the coordination. The two functions are exchanged continuously — never split into rulers and ruled.
 
-**Institutional Discipline.** Each layer is disciplined by the cost of leaving it — what a member forfeits by walking out, and what a community forfeits by casting someone out. Where leaving is cheap, competition disciplines: the Substrate and E&I layers. Where leaving is dear, members get a vote: the Covenant and Governance layers. Where leaving is impossible, decisions stay open to challenge: the Record layer. Each layer names its own cost below, because that cost is what decides how a fight there gets settled.
+**Institutional Discipline.** Each layer is disciplined by the cost of leaving it — what a member forfeits by walking out, and what a community forfeits by casting someone out. Where leaving is cheap, competition disciplines: the Substrate and Economy & Information layers. Where leaving is dear, members get a vote: the Covenant and Governance layers. Where leaving is impossible, decisions stay open to challenge: the Record layer. Each layer names its own cost below, because that cost is what decides how a fight there gets settled.
 
 **Lean, auditable code.** Protocol software stays small, depends on nothing but its language's standard library, and is auditable whole.
 
