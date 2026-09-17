@@ -106,8 +106,8 @@ REGISTRY = [
               "implementation", "federation tests: what crosses record communities is reputation and history only"),
     Invariant("REC-witness-minimum", "record", "label itself unfederated",
               "implementation", "deployment tests: an operator platform with fewer than two independent witnesses forces the unfederated label (was 8.3; reworded 2026-08-25)"),
-    Invariant("REC-witness-work", "record", "compensated compute/record service provided by prosumers",
-              "implementation", "substrate tests: record-keeping and witnessing assigned as compensated substrate work (reworded 2026-08-27)"),
+    Invariant("REC-witness-work", "record", "compensating the prosumers who keep the record",
+              "implementation", "substrate tests: record-keeping and witnessing assigned as compensated substrate work (reworded 2026-08-27; anchor retracked to the frontend market wording 2026-09-17)"),
     # Covenant layer
     Invariant("COV-adjudicators", "covenant", "rated on their conduct by both prosumers",
               "implementation", "covenant tests: adjudication conduct ratable by both parties (was 7.2-adjudicator-rated)"),
