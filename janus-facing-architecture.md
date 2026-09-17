@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Janus Facing Architecture — named for the Roman god who looks in two directions at once, just as every economic participant faces demands for both production and consumption — allows communities to address the economic reality of prosumership. Every member of an economy is not just a consumer, but a prosumer (Toffler, 1980), simultaneously producing something of value even if all they have to offer is time. It also provides an option to transform the issuance model from exogenous, chartal money (issued by an authority outside the community) to endogenous mutual credit (issued by members to one another as they transact).
+Janus Facing Architecture — named for the Roman god who looks in two directions at once, just as every economic participant faces demands for both production and consumption — allows communities to address the economic reality of prosumership. Every member of an economy is not just a consumer, but a prosumer (Toffler, 1980), simultaneously producing something of value even if all they have to offer is time. It also provides an option to transform the issuance model from exogenous, chartal money — issued by an authority outside the community (Knapp, 1924) — to endogenous mutual credit, issued by members to one another as they transact (Moore, 1988; Greco, 2009).
 
 The name's second face is political. Acemoglu and Robinson (2019) show that liberty survives only inside a narrow corridor where a capable state — the Leviathan — is matched by a society equally capable of checking it. Outside the corridor the Leviathan takes its other forms: absent, and coordination fails; despotic, and the coordinator dominates the coordinated; paper, and the checks exist in writing but not in effect. Staying inside the corridor demands what they call the Red Queen effect: state and society running together, each growing capacity because the other does. Every economic platform is a Leviathan in miniature — it coordinates, enforces and records — and today's dominant platforms are despotic by construction, evolving at network speed while the institutions meant to check them move at the speed of meetings.
 
@@ -128,6 +128,12 @@ A build that crosses any of these is not a smaller JFA; it is different software
 ## References
 
 Acemoglu, D., & Robinson, J. A. (2019). *The Narrow Corridor: States, Societies, and the Fate of Liberty*. Penguin Press.
+
+Greco, T. H. (2009). *The End of Money and the Future of Civilization*. Chelsea Green Publishing.
+
+Knapp, G. F. (1924). *The State Theory of Money*. Macmillan. (Original work published 1905)
+
+Moore, B. J. (1988). *Horizontalists and Verticalists: The Macroeconomics of Credit Money*. Cambridge University Press.
 
 Network Theory Applied Research Institute. (2025a, October). *Addressing democratic information velocity* (P1-002). https://www.ntari.org/post/ntari-whitepaper-addressing-democratic-information-velocity
 
