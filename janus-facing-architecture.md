@@ -112,7 +112,7 @@ Frontend designs for E&I platforms must be customizeable by the user.
 
 A build that crosses any of these is not a smaller JFA; it is different software wearing the name.
 
-1. Money is created at the moment of exchange — one balance down, one up, always summing to zero.
+1. Every credit is an IOU, created at the moment two members trade — one balance down, one up, always summing to zero. That is the only way money comes into being: nothing is minted, nothing is issued from outside, and nothing accrues as interest.
 2. Credit is earned, never bought, and never redeemable for fiat.
 3. Each community's currency is sovereign — no shared unit, no conversion between communities.
 4. Value stays home; only truth crosses.
