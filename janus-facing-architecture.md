@@ -38,11 +38,11 @@ Federated prosumer compute power creating more options across geography. Orchest
 
 ### Frontend Tier
 
-E&I interface for prosuming compute/storage.
+Economy & Information interface for prosuming compute/storage.
 
 ## Record Layer
 
-A compensated function of the substrate, recording and serving dialog between E&I and Covenant layers for the public.
+A compensated function of the substrate, recording and serving dialog between Economy & Information and Covenant layers for the public.
 
 The record of what happened is held six ways. Each party to a transaction keeps a record of their own; the operator keeps its own; two witnesses keep their own; and the hashes are committed to one public chain, distributed across the substrate — the record for everyone who was neither transactor, witness, nor operator. The chain is append-only: harm is forgiven by annotation, never by erasing. A platform must have at least two independent witnesses; with fewer, a deployment must label itself unfederated. 
 
@@ -50,7 +50,7 @@ A cross-community exchange remains two sovereign spends. The citation that settl
 
 ### Protocol Tier
 
-Captures, categorizes and hashes each transmission within the stack in order to establish reputation through the covenant layer and establishing the basis of an exchange medium through E&I.
+Captures, categorizes and hashes each transmission within the stack in order to establish reputation through the covenant layer and establishing the basis of an exchange medium through Economy & Information.
 
 ### Orchestrator Tier
 
@@ -58,7 +58,7 @@ Federates records across geography enabling shared reputation and exchange. What
 
 ### Frontend Tier
 
-Compensated compute/record service provided by prosumers on the substrate layer E&I.
+Compensated compute/record service provided by prosumers on the substrate layer Economy & Information.
 
 ## Covenant Layer
 
@@ -70,11 +70,11 @@ A simple assessment, written in executable code for prosumers to rate interactio
 
 ### Orchestrator Tier
 
-An API serving compliant assessments across the E&I markets of the stack from substrate prosumers. When apparent breaches of the covenant occur, platform operators adjudicate between their prosumers; disputes that cross platforms are adjudicated at the witness layer. Adjudicators are rated on their conduct by both prosumers/operators involved.
+An API serving compliant assessments across the Economy & Information markets of the stack from substrate prosumers. When apparent breaches of the covenant occur, platform operators adjudicate between their prosumers; disputes that cross platforms are adjudicated at the witness layer. Adjudicators are rated on their conduct by both prosumers/operators involved.
 
 ### Frontend Tier
 
-The E&I interface where the API is served.
+The Economy & Information interface where the API is served.
 
 ## Governance Layer
 
@@ -94,7 +94,7 @@ The synchronous/asynchronous coordination of members governed by the organizatio
 
 ## Economy & Information Layer
 
-The E&I layer is hosted on substrate, syndicated with the record layer, and facilitates covenant compliance.
+The Economy & Information layer is hosted on substrate, syndicated with the record layer, and facilitates covenant compliance.
 
 ### Protocol Tier
 
@@ -102,11 +102,11 @@ Each economic or information platform has a protocol designed for the exchange t
 
 ### Orchestrator Tier
 
-E&I must run on revokable hardware obtained and recorded by the substrate layer. A platform needs no orchestrator of its own: it selects one from the substrate market and pays transport out of the trade
+Economy & Information must run on revokable hardware obtained and recorded by the substrate layer. A platform needs no orchestrator of its own: it selects one from the substrate market and pays transport out of the trade
 
 ### Frontend Tier
 
-Frontend designs for E&I platforms must be customizeable by the user. 
+Frontend designs for Economy & Information platforms must be customizeable by the user. 
 
 ## The Lines That Cannot Be Crossed
 
