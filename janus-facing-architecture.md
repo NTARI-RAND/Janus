@@ -4,7 +4,7 @@
 
 Every member of an economy is a **prosumer** — not only a consumer, but at the same time a producer of something of value, even if all they have to offer is time (Toffler, 1980). Nobody stands on only one side of a trade; the two faces are the same person.
 
-Janus Facing Architecture is named for the Roman god who looks in two directions at once, because that is what every prosumer does: each faces demands for both production and consumption, at the same time. It allows communities to address the economic reality of prosumership, and provides an option to transform the issuance model from exogenous, chartal money (issued by an authority outside the community) to endogenous mutual credit (issued by members to one another as they transact).
+Janus Facing Architecture is named for the Roman god who looks in two directions at once, because that is what every prosumer does: each faces demands for both production and consumption, at the same time. It allows communities to address the economic reality of prosumership, and provides an option to transform the issuance model from exogenous, chartal money — issued by an authority outside the community (Knapp, 1924) — to endogenous mutual credit, issued by members to one another as they transact (Moore, 1988; Greco, 2009).
 
 The name's second face is political. Acemoglu and Robinson (2019) show that liberty survives only inside a narrow corridor where a capable state — the Leviathan — is matched by a society equally capable of checking it. Outside the corridor the Leviathan takes its other forms: absent, and coordination fails; despotic, and the coordinator dominates the coordinated; paper, and the checks exist in writing but not in effect. Staying inside the corridor demands what they call the Red Queen effect: state and society running together, each growing capacity because the other does. Every economic platform is a Leviathan in miniature — it coordinates, enforces and records — and today's dominant platforms are despotic by construction, evolving at network speed while the institutions meant to check them move at the speed of meetings.
 
@@ -46,11 +46,11 @@ Federated prosumer compute power creating more options across geography. Orchest
 
 ### Frontend Tier
 
-E&I interface for prosuming compute/storage.
+Economy & Information interface for prosuming compute/storage.
 
 ## Record Layer
 
-A compensated function of the substrate, recording and serving dialog between E&I and Covenant layers for the public.
+A compensated function of the substrate, recording and serving dialog between Economy & Information and Covenant layers for the public.
 
 The record of what happened is held six ways. Each party to a transaction keeps a record of their own; the operator keeps its own; two witnesses keep their own; and the hashes are committed to one public chain, distributed across the substrate — the record for everyone who was neither transactor, witness, nor operator. The chain is append-only: harm is forgiven by annotation, never by erasing. A platform must have at least two independent witnesses; with fewer, a deployment must label itself unfederated.
 
@@ -60,7 +60,7 @@ A cross-community exchange remains two sovereign spends. The citation that settl
 
 ### Protocol Tier
 
-Captures, categorizes and hashes each transmission within the stack in order to establish reputation through the covenant layer and establishing the basis of an exchange medium through E&I.
+Captures, categorizes and hashes each transmission within the stack in order to establish reputation through the covenant layer and establishing the basis of an exchange medium through Economy & Information.
 
 ### Orchestrator Tier
 
@@ -68,7 +68,7 @@ Federates records across geography enabling shared reputation and exchange. What
 
 ### Frontend Tier
 
-Compensated compute/record service provided by prosumers on the substrate layer E&I.
+The buying and selling of record storage across the substrate, compensating the prosumers who keep the record.
 
 ## Covenant Layer
 
@@ -82,11 +82,11 @@ A simple assessment, written in executable code for prosumers to rate interactio
 
 ### Orchestrator Tier
 
-An API serving compliant assessments across the E&I markets of the stack from substrate prosumers.
+An API serving compliant assessments across the Economy & Information markets of the stack from substrate prosumers.
 
 ### Frontend Tier
 
-The E&I interface where the API is served.
+The Economy & Information interface where the API is served.
 
 ## Governance Layer
 
@@ -108,7 +108,7 @@ The synchronous/asynchronous coordination of members governed by the organizatio
 
 ## Economy & Information Layer
 
-The E&I layer is hosted on substrate, syndicated with the record layer, and facilitates covenant compliance.
+The Economy & Information layer is hosted on substrate, syndicated with the record layer, and facilitates covenant compliance.
 
 Exit here is cheap by construction. An operator may bar a prosumer from its platform but not from what they built there: positions and history survive any frontend, so the expelled leave with their record intact and their balances still owed. Expulsion is a loss of market, not a loss of standing — and an operator whose terms or credit limit drive prosumers out loses the trade rather than winning the argument.
 
@@ -118,11 +118,11 @@ Each economic or information platform has a protocol designed for the exchange t
 
 ### Orchestrator Tier
 
-E&I must run on revokable hardware obtained and recorded by the substrate layer. A platform needs no orchestrator of its own: it selects one from the substrate market and pays transport out of the trade
+Economy & Information must run on revokable hardware obtained and recorded by the substrate layer. A platform needs no orchestrator of its own: it selects one from the substrate market and pays transport out of the trade
 
 ### Frontend Tier
 
-Frontend designs for E&I platforms must be customizeable by the user. 
+Frontend designs for Economy & Information platforms must be customizeable by the user. 
 
 ## The Lines That Cannot Be Crossed
 
@@ -144,6 +144,12 @@ A build that crosses any of these is not a smaller JFA; it is different software
 ## References
 
 Acemoglu, D., & Robinson, J. A. (2019). *The Narrow Corridor: States, Societies, and the Fate of Liberty*. Penguin Press.
+
+Greco, T. H. (2009). *The End of Money and the Future of Civilization*. Chelsea Green Publishing.
+
+Knapp, G. F. (1924). *The State Theory of Money*. Macmillan. (Original work published 1905)
+
+Moore, B. J. (1988). *Horizontalists and Verticalists: The Macroeconomics of Credit Money*. Cambridge University Press.
 
 Network Theory Applied Research Institute. (2025a, October). *Addressing democratic information velocity* (P1-002). https://www.ntari.org/post/ntari-whitepaper-addressing-democratic-information-velocity
 
