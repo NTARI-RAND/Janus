@@ -2,7 +2,7 @@
 
 The living open-questions document for the Janus Facing Architecture, per the practice carried forward in the [2026-08-24 concept triage](jfa-concept-triage-2026-08-24.md). A stale document here means the project has stopped describing itself honestly. Each entry carries a status and names the constraints it inherits.
 
-Four entries carry open business: readmission after trust suspension (entry 7, resolved in draft pending adoption of the bylaws amendment), sybil resistance in the governance franchise (entry 8), residential substrate constraints (entry 9, resolved in draft with its confidential-execution part still open), and the pricing of the transport fee (entry 10). The rest were resolved as raised; their record follows.
+Five entries carry open business: readmission after trust suspension (entry 7, resolved in draft pending adoption of the bylaws amendment), sybil resistance in the governance franchise (entry 8), residential substrate constraints (entry 9, resolved in draft with its confidential-execution part still open), the pricing of the transport fee (entry 10), and record permanence under paid storage (entry 11). The rest were resolved as raised; their record follows.
 
 ## 1. Contestability
 
@@ -103,3 +103,11 @@ Whether the operator's witness slot is mandatory, given operators are insulated 
 What the default commitment window is before escrow reverts. Too short and prosumer hardware with churn, sleep and relay fails honest carries; too long and capacity sits escrowed against a carry nobody will complete.
 
 **Inherits:** value stays home and cross-community exchange as paired sovereign spends (lines 3–5); privacy floor (line 7, entry 2); no chokepoint (line 11); witness minimum (entry 4); witnessing as compensated substrate work (entry 6).
+
+## 11. Record permanence under paid storage
+
+**Status:** open (2026-09-30)
+
+Record permanence is bounded by paid storage. The record layer is compensated for its storage, so each holder's copy — prosumer, operator, witness, orchestrator — lasts as long as its bill is paid and ends with that holder's death or insolvency. Automation may extend some copies, but plausibly none lasts more than a few hundred years. The official document says what was committed "stays committed" (Record layer), and the dispute-mechanics design says defaults are "Recorded forever" (§5). Raised by the principal on 2026-09-30 as not necessarily a defect; the wording should match the mechanism.
+
+**Inherits:** append-only record (line 6); positions and history survive any frontend (line 12); six holders (REC-six-holders); record-keeping as compensated substrate work (REC-witness-work, entry 6); defaults annotated, never erased (dispute-mechanics design §5).
