@@ -124,7 +124,7 @@ REGISTRY = [
     # Governance layer — membership and the franchise, returned to the document
     # on 2026-09-22 because a vote resting on an instrument the architecture can
     # be read to forbid is a paper check (amendment of 2026-09-22, §1).
-    Invariant("GOV-prosumer-membership", "governance", "by prosumer standing on a federated platform",
+    Invariant("GOV-prosumer-membership", "governance", "by participating as a prosumer on a federated platform",
               "instrument", "P1-001 §§3.3, 3.8: a prosumer of a federated platform may take up membership of the stewardship organization on the terms its bylaws provide (new 2026-09-22)"),
     Invariant("GOV-federation-election", "governance", "the covenant federation or the governance federation as the member elects",
               "instrument", "P1-001 §3.9: the election is the member's own act, recorded in the governance registry, changeable once a year at the March equinox (new 2026-09-22)"),

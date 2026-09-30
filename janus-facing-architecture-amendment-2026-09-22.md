@@ -28,7 +28,7 @@ It touches none of the twelve lines.
 
 **Amended text.**
 
-> Membership in the Network Theory Applied Research Institute, obtained by operating a federated instance of JFA software, or by prosumer standing on a federated platform as the organization's bylaws provide. The members of each layer form that layer's federation: an operating member sits in the federation of every layer it operates, and a prosumer member sits in the Covenant federation or the Governance federation, as the member elects. Each federation carries one vote in the organization's decisions, however large its roll.
+> Membership in the Network Theory Applied Research Institute, obtained by operating a federated instance of JFA software, or by participating as a prosumer on a federated platform as the organization's bylaws provide. The members of each layer form that layer's federation: an operating member sits in the federation of every layer it operates, and a prosumer member sits in the Covenant federation or the Governance federation, as the member elects. Each federation carries one vote in the organization's decisions, however large its roll.
 
 **Rationale.**
 
