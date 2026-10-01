@@ -126,10 +126,6 @@ REGISTRY = [
     # be read to forbid is a paper check (amendment of 2026-09-22, §1).
     Invariant("GOV-prosumer-membership", "governance", "by participating as a prosumer on a federated platform",
               "instrument", "P1-001 §§3.3, 3.8: a prosumer of a federated platform may take up membership of the stewardship organization on the terms its bylaws provide (new 2026-09-22)"),
-    Invariant("GOV-federation-election", "governance", "the covenant federation or the governance federation as the member elects",
-              "instrument", "P1-001 §3.9: the election is the member's own act, recorded in the governance registry, changeable once a year at the March equinox (new 2026-09-22)"),
-    Invariant("GOV-one-vote-per-federation", "governance", "each federation carries one vote in the organization",
-              "instrument", "P1-001 §§3.4, 5.3: headcount decides within a federation and never beyond it, so no federation is bought by recruitment (new 2026-09-22; severable with the sentence it binds)"),
     # The lines that cannot be crossed
     Invariant("L1", "lines", "always summing to zero",
               "implementation", "economy tests: each exchange moves two balances netting to zero (was 7.1-zero-sum)"),

@@ -4,7 +4,7 @@
 
 Prepared for the delegates. The official document is amended only by a majority vote of the delegates, each federation having decided under §6.5, and the amendment is not adopted until the conformance suite passes against the amended text (§9.2). During bootstrap (§16.1) the founder board exercises the powers of the membership; an adoption so made is recorded in the governance registry (§9.5) as a bootstrap act and stands open to the membership under §2.3.
 
-**Sequence.** This amendment precedes the P1-001 v1.1 amendment dated the same day. Items 2 through 12 of that instrument — prosumer membership placed in the Covenant or Governance federation — rest on Section 1 below. Adopted in the other order, the bylaws would exceed the official document in the sense of §15.2 for the interval between the two acts. Where both are adopted in a single bootstrap act, this amendment is recorded first.
+**Sequence.** This amendment precedes the P1-001 v1.1 draft. The v1.1 amendment dated the same day was superseded on 2026-09-30 by the consistency-pass v1.1 (bylaws PR #4), which carries the prosumer member's federation election in §3.9; that election rests on the membership path Section 1 names. Adopted in the other order, the bylaws would exceed the official document in the sense of §15.2 for the interval between the two acts. Where both are adopted in a single bootstrap act, this amendment is recorded first.
 
 **Base.** This amendment is written against the document as it reads with the six editorial revisions of 2026-09-17 applied — pull requests #9 through #14, open at the time of drafting. Section 1 is unaffected by them. Section 2 is: see its own note.
 
@@ -12,7 +12,7 @@ Prepared for the delegates. The official document is amended only by a majority 
 
 ## What this amendment does
 
-1. Names prosumer standing as a path into membership of the stewardship organization, and places the prosumer member's vote in the Covenant federation or the Governance federation at the member's election. *(Governance layer, orchestrator tier.)*
+1. Names prosumer standing as a path into membership of the stewardship organization, on the terms its bylaws provide. *(Governance layer, orchestrator tier.)* **Revised 2026-10-01:** by decision of the principal, the placement of the prosumer member's vote in the Covenant or Governance federation, and the weight of a federation's vote, are bylaw matters and are no longer carried in the amended text; P1-001 v1.1 §3.4, §3.8 and §3.9 (bylaws PR #4) carry them.
 2. Names who adjudicates a dispute between a prosumer and the operator of its own platform: the witness layer, never the operator. *(Covenant layer.)* Severable from Section 1.
 3. Instructs the conformance suite and the invariant registry.
 
@@ -28,11 +28,13 @@ It touches none of the twelve lines.
 
 **Amended text.**
 
-> Membership in the Network Theory Applied Research Institute, obtained by operating a federated instance of JFA software, or by participating as a prosumer on a federated platform as the organization's bylaws provide. The members of each layer form that layer's federation: an operating member sits in the federation of every layer it operates, and a prosumer member sits in the Covenant federation or the Governance federation, as the member elects. Each federation carries one vote in the organization's decisions, however large its roll.
+> Membership in the Network Theory Applied Research Institute, obtained by operating a federated instance of JFA software, or by participating as a prosumer on a federated platform as the organization's bylaws provide.
 
 **Rationale.**
 
 Institutional Discipline says that where leaving is dear, members get a vote. A prosumer's exit is dear once its credit is sovereign and non-convertible (Lines 2 and 3). The document gave that prosumer standing to challenge — through the Covenant tier's adjudication — but no vote; the only membership it named was the operator's, whose exit is the cheap one (fork the code, keep the record). The bylaws (P1-001 v1.0 §3.8) supplied the vote, but the document did not recognize the membership they created, §15.2 subordinates the bylaws to the document, and the bylaws' own preamble still describes Governance orchestration as the relationships among operator-members. A vote resting on an instrument the architecture can be read to forbid is a paper check. This section moves the vote into the architecture.
+
+*Revised 2026-10-01: the two paragraphs that follow record reasoning that now lives in the bylaws (P1-001 v1.1 §3.4, §3.8, §3.9, §5.3). The amended text above no longer places the vote or fixes its weight; the architecture names the membership and the bylaws say where it sits.*
 
 Two federations rather than one, because the two things a prosumer has an interest in are held in two places: the covenant — the social contract that governs how it is treated in trade — and governance — the audit of the stack against the standard. Each prosumer places its vote where its interest lies. The bylaws carry the mechanics (recognition, election, the annual change) and the document carries only the structure.
 
@@ -43,8 +45,8 @@ One vote per federation however large its roll is Shared Responsibility applied 
 No registered invariant was anchored to the current sentence — the `GOV-*` identifiers were retired to the bylaws level on 2026-08-27 — so no anchor update under §9.16 is carried and no descendant identifier is issued. Proposed new invariants, bound to *instrument* (P1-001):
 
 - `GOV-prosumer-membership` — a prosumer of a federated platform may take up membership of the stewardship organization on the terms its bylaws provide.
-- `GOV-federation-election` — a prosumer member sits in the Covenant or the Governance federation at its own election, and the election is recorded in the governance registry.
-- `GOV-one-vote-per-federation` — each federation carries one vote in the organization's decisions however large its roll. *(Severable with the sentence it binds.)*
+
+*Withdrawn 2026-10-01, before issue:* `GOV-federation-election` and `GOV-one-vote-per-federation`, proposed in the 2026-09-22 draft. The rules they would have bound are bylaw matters (P1-001 v1.1 §3.9, §3.8). Neither identifier was ever issued, so §9.16 does not reserve them.
 
 ---
 
