@@ -12,7 +12,7 @@ NTARI's research locates this failure in infrastructure itself. Deliberative sys
 
 The Janus Facing Architecture (JFA) is organized into five functional layers — Substrate, Record, Covenant, Governance, and Economy & Information (E&I) — each implemented in three tiers: the frontend — for prosumer collaboration; the orchestrator — a backend providing overlapping coordination across geographic communities; and the underlying protocol — the pattern for securely handling data across tiers.
 
-JFA software is designed for release and management in a copyleft environment, generally the GNU Affero General Public License, allowing new frontends, federations, protocols and architectures to evolve in the global market, forming a free software commons. 
+JFA software is designed for release and management in a copyleft environment, generally the GNU Affero General Public License, version 3 or later (AGPL-3.0-or-later), allowing new frontends, federations, protocols and architectures to evolve in the global market, forming a free software commons. 
 
 This is the official document, stewarded by Network Theory Applied Research Institute, Inc. Prior instruments are preserved in [Historical Docs](Historical%20Docs/); concepts carried from them are recorded in the [concept triage](jfa-concept-triage-2026-08-24.md); what remains unresolved is named in [OPEN-QUESTIONS.md](OPEN-QUESTIONS.md).
 
@@ -24,7 +24,7 @@ Every system that coordinates people exercises power over them, whether it means
 
 **Shared Responsibility.** The community that coordinates the economy is the same community that checks the coordination. The two functions are exchanged continuously — never split into rulers and ruled.
 
-**Institutional Discipline.** Each layer is disciplined by the cost of leaving it — what a member forfeits by walking out, and what a community forfeits by casting someone out. Where leaving is cheap, competition disciplines: the Substrate and Economy & Information layers. Where leaving is dear, members get a vote: the Covenant and Governance layers. Where leaving is impossible, decisions stay open to challenge: the Record layer. Each layer names its own cost below, because that cost is what decides how a fight there gets settled.
+**Institutional Discipline.** Each layer is disciplined by the cost of leaving it — what a member forfeits by walking out, and what a community forfeits by casting someone out. Where leaving is cheap, competition disciplines: the Substrate and Economy & Information layers. Where leaving is dear, members get a vote: the Covenant and Governance layers. Where leaving is catastrophic, decisions stay open to challenge: the Record layer. Each layer names its own cost below, because that cost is what decides how a fight there gets settled.
 
 **Lean, auditable code.** Protocol software stays small, depends on nothing but its language's standard library, and is auditable whole.
 
@@ -32,7 +32,7 @@ Every system that coordinates people exercises power over them, whether it means
 
 This is the hardware where everything happens, owned by prosumers of CPUs, GPUs, printers, storage and sensors.
 
-Exit here is cheap, and expulsion costs a prosumer nothing but a connection. An orchestrator that refuses to carry your capacity has not taken your hardware, your balances or your history, and another orchestrator is one published offer away. Quarrels at this layer are therefore not adjudicated: a carry that goes unattested inside its commitment window simply reverts, nobody rules on it, and a carrier that expels or fails too freely is undercut rather than appealed to.
+Exit here is cheap, and a carrier's refusal costs a prosumer nothing but a connection. An orchestrator that refuses to carry your capacity has not taken your hardware, your balances or your history, and another orchestrator is one published offer away. Quarrels at this layer are therefore not adjudicated: a carry that goes unattested inside its commitment window simply reverts, nobody rules on it, and a carrier that refuses or fails too freely is undercut rather than appealed to.
 
 ### Protocol Tier
 
@@ -52,11 +52,11 @@ Economy & Information interface for prosuming compute/storage.
 
 A compensated function of the substrate, recording and serving dialog between Economy & Information and Covenant layers for the public.
 
-The record of what happened is held six ways. Each party to a transaction keeps a record of their own; the operator keeps its own; two witnesses keep their own; and the hashes are committed to one public chain, distributed across the substrate — the record for everyone who was neither transactor, witness, nor operator. The chain is append-only: harm is forgiven by annotation, never by erasing. A platform must have at least two independent witnesses; with fewer, a deployment must label itself unfederated.
+The record of what happened is held by six parties: the two prosumers to the exchange, the operator, the orchestrator, and two witnesses each keep a record of their own. The hashes are also committed to one public chain, distributed across the substrate — the record for everyone who holds none of their own. The commitments of every exchange carried by an orchestrator are copied to the chain and stored on substrate funded by the stewardship organization of the Governance layer, so the record that binds communities to one another is paid for by none of them. The chain is append-only: harm is forgiven by annotation, never by erasing. A platform must have at least two independent witnesses; with fewer, a deployment must label itself unfederated.
 
-Nobody can be expelled from the record, and nobody can leave it. What was committed stays committed, and the hash on the public chain outlives the operator, the frontend and the quarrel. Because there is no exit to hold over anyone, no finding here is ever final: a disputed entry is answered by annotation, and the annotation is as permanent as the entry it answers.
+Nobody can be deleted from the record, and leaving it is catastrophic. What was committed is never erased, but no single copy is the record, and each copy lasts only as long as it is kept: the orchestrator's with the last paid carry, the witnesses' while the operator pays them, the prosumers' and operator's own until they stop keeping them, and the chain's for as long as its storage is funded. The record survives in whichever copies remain; the chain is stored by the substrate rather than by the operator, so it can outlive the operator, the frontend and the quarrel, and what it carries past every holder is the fact of commitment, not the content. Because nothing can be deleted from the record, no finding here is ever final: a disputed entry is answered by annotation, and the annotation is as permanent as the entry it answers.
 
-A cross-community exchange remains two sovereign spends. The citation that settles it carries a third: the orchestrator's transport fee, escrowed with the trade at initiation and released by that same citation. Release is joint and all-or-nothing — if delivery is not attested within the offer's commitment window, all three spends revert — and the orchestrator's own attestation does not count toward the threshold that releases its own fee. The fee settles in the home ledger of the prosumers whose capacity was carried; it does not cross a community boundary. The credit it earns is held the same six ways, cited by key.
+A cross-community exchange remains two sovereign spends. The citation that settles it carries the orchestrator's transport fee as well, escrowed with the trade at initiation and released by that same citation. Release is joint and all-or-nothing — if delivery is not attested within the offer's commitment window, every spend reverts — and the orchestrator's own attestation does not count toward the threshold that releases its own fee. The fee is split between the home ledgers of the two prosumers whose trade was carried, each paying its share in its own unit; nothing crosses a community boundary. The credit it earns is held by the same six parties, cited by key.
 
 ### Protocol Tier
 
@@ -74,7 +74,9 @@ The buying and selling of record storage across the substrate, compensating the 
 
 A social contract enforced in code, informing flexible expectations for prosumer interactions.
 
-Exit here is dear. Being cast out of the covenant costs a prosumer the one thing that cannot be rebuilt quickly — the count of exchanges at each rating level, earned one witnessed exchange at a time. That price is why expulsion is adjudicated rather than assumed. When apparent breaches of the covenant occur, platform operators adjudicate between their prosumers; disputes that cross platforms are adjudicated at the witness layer. Adjudicators are rated on their conduct by both prosumers/operators involved — the referees stand inside the reputation system they enforce.
+Exit here is dear. A prosumer barred from a platform keeps the record of every rating they earned there — six parties hold it — but the standing it carries does not follow them by default: on the next platform, the count of exchanges at each rating level is rebuilt one witnessed exchange at a time. That price is why a bar rests on adjudicated evidence rather than an operator's word. When apparent breaches of the covenant occur, platform operators adjudicate between their prosumers; disputes that cross platforms, and disputes between a prosumer and the operator of its own platform, are adjudicated at the witness layer — no operator adjudicates a dispute to which it is a party. Wherever adjudication occurs, the parties to it rate the adjudicator — the operator between its own prosumers, the witnesses otherwise — so the referees stand inside the reputation system they enforce.
+
+Because exit is dear, members vote here: the Covenant federation votes on conceptual and programmatic changes to the covenant (the Leveson-Based Trade Assessment Scale, LBTAS), its API and its orchestration, and commissions formal studies of the chosen covenant's effects on its users.
 
 ### Protocol Tier
 
@@ -92,7 +94,7 @@ The Economy & Information interface where the API is served.
 
 This is where and how humans assemble to collaboratively act on the stack.
 
-Exit here is dear, and this is the only layer where expulsion reaches the software itself: a member cast out of the Institute loses the vote that shapes what everyone else runs. So expulsion is never an operator's decision — it is referred and decided by vote under the bylaws, on the record, and the delegates who carry that vote are recallable by the members who seated them.
+Exit here is dear, and this is the only layer where expulsion reaches the software itself: a member expelled from the Institute loses, for a bounded term, the vote that shapes what everyone else runs. So expulsion is never an operator's decision — it is referred to the Governance federation and decided by its members' vote under the bylaws, on the record.
 
 ### Protocol Tier
 
@@ -100,7 +102,7 @@ Nonprofit, copyleft software stewardship organization.
 
 ### Orchestrator Tier
 
-Membership in the Network Theory Applied Research Institute, obtained by operating a federated instance of JFA software.   
+Membership in the Network Theory Applied Research Institute, obtained by operating a federated instance of JFA software or by participating as a prosumer on a federated platform.   
 
 ### Frontend Tier
 
@@ -110,7 +112,7 @@ The synchronous/asynchronous coordination of members governed by the organizatio
 
 The Economy & Information layer is hosted on substrate, syndicated with the record layer, and facilitates covenant compliance.
 
-Exit here is cheap by construction. An operator may bar a prosumer from its platform but not from what they built there: positions and history survive any frontend, so the expelled leave with their record intact and their balances still owed. Expulsion is a loss of market, not a loss of standing — and an operator whose terms or credit limit drive prosumers out loses the trade rather than winning the argument.
+Exit here is cheap by construction. An operator may bar a prosumer from its platform but not from what they built there: positions and history survive any frontend, so the barred leave with their record intact and their balances still owed. A bar is a loss of market, not a loss of standing — and an operator whose terms or credit limit drive prosumers out loses the trade rather than winning the argument.
 
 ### Protocol Tier
 
@@ -161,4 +163,4 @@ Toffler, A. (1980). *The Third Wave*. William Morrow.
 
 *Network Theory Applied Research Institute, Inc. — 501(c)(3) — EIN 92-3047136 — info@ntari.org*
 
-*Software: AGPL-3.0 · Specification: CC BY-SA 4.0*
+*Software: AGPL-3.0-or-later · Specification: CC BY-SA 4.0*
