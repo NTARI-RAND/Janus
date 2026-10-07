@@ -40,6 +40,8 @@ Exchanges instructions and orders across a distributed compute/storage market op
 
 Nodes join that market over encrypted overlays and outbound polling, without requiring open inbound ports or a static address; the connection as a residential provider ships it is enough. Line 11 depends on this: a substrate that ran only where a provider permits inbound service would carry a chokepoint at every provider.
 
+Substrate work is integrity-assured, not confidentiality-assured: a host can read what its node computes. Work whose result settles a spend or enters the record runs on at least two independent hosts, and their disagreement is rated, never trusted.
+
 ### Orchestrator Tier
 
 Federated prosumer compute power creating more options across geography. Orchestrators publish transport offers into the substrate market, each naming a fee, a delivery commitment and a public key; any platform may select any reachable orchestrator, so a dominant carrier is undercut rather than regulated. Transport is delivery, not execution: an orchestrator carries signed spends to the witness set and returns attestations, is never relied upon to determine whether an exchange occurred, and may be lossy and retry-based.
@@ -52,11 +54,11 @@ Economy & Information interface for prosuming compute/storage.
 
 A compensated function of the substrate, recording and serving dialog between Economy & Information and Covenant layers for the public.
 
-The record of what happened is held by six parties: the two prosumers to the exchange, the operator, the orchestrator, and two witnesses each keep a record of their own. The hashes are also committed to one public chain, distributed across the substrate — the record for everyone who holds none of their own. The commitments of every exchange carried by an orchestrator are copied to the chain and stored on substrate funded by the stewardship organization of the Governance layer, so the record that binds communities to one another is paid for by none of them. The chain is append-only: harm is forgiven by annotation, never by erasing. A platform must have at least two independent witnesses; with fewer, a deployment must label itself unfederated.
+The record of what happened is held by six parties: the two prosumers to the exchange, the operator, the orchestrator, and two witnesses each keep a record of their own. The hashes are also committed to one public chain, distributed across the substrate — the record for everyone who holds none of their own. The commitments of every exchange carried by an orchestrator are copied to the chain and stored on substrate funded by the stewardship organization of the Governance layer, so the record that binds communities to one another is paid for by none of them. The chain is append-only: harm is forgiven by annotation, never by erasing. A platform must have at least two independent witnesses; with fewer, a deployment must label itself unfederated. Witnesses are assigned by a draw seeded from the public chain, which anyone can verify, and are paid by the substrate market, never by the operator they observe.
 
-Nobody can be deleted from the record, and leaving it is catastrophic. What was committed is never erased, but no single copy is the record, and each copy lasts only as long as it is kept: the orchestrator's with the last paid carry, the witnesses' while the operator pays them, the prosumers' and operator's own until they stop keeping them, and the chain's for as long as its storage is funded. The record survives in whichever copies remain; the chain is stored by the substrate rather than by the operator, so it can outlive the operator, the frontend and the quarrel, and what it carries past every holder is the fact of commitment, not the content. Because nothing can be deleted from the record, no finding here is ever final: a disputed entry is answered by annotation, and the annotation is as permanent as the entry it answers.
+Nobody can be deleted from the record, and leaving it is catastrophic. What was committed is never erased, but no single copy is the record, and each copy lasts only as long as it is kept: the orchestrator's with the last paid carry, the witnesses' while their storage is paid, the prosumers' and operator's own until they stop keeping them, and the chain's for as long as its storage is funded. The record survives in whichever copies remain; the chain is stored by the substrate rather than by the operator, so it can outlive the operator, the frontend and the quarrel, and what it carries past every holder is the fact of commitment, not the content. Because nothing can be deleted from the record, no finding here is ever final: a disputed entry is answered by annotation, and the annotation is as permanent as the entry it answers.
 
-A cross-community exchange remains two sovereign spends. The citation that settles it carries the orchestrator's transport fee as well, escrowed with the trade at initiation and released by that same citation. Release is joint and all-or-nothing — if delivery is not attested within the offer's commitment window, every spend reverts — and the orchestrator's own attestation does not count toward the threshold that releases its own fee. The fee is split between the home ledgers of the two prosumers whose trade was carried, each paying its share in its own unit; nothing crosses a community boundary. The credit it earns is held by the same six parties, cited by key.
+A cross-community exchange remains two sovereign spends. The citation that settles it carries the orchestrator's transport fee as well, escrowed with the trade at initiation and released by that same citation. Release is joint and all-or-nothing — if delivery is not attested within the offer's commitment window, every spend reverts — and the orchestrator's own attestation does not count toward the threshold that releases its own fee. The fee is split between the home ledgers of the two prosumers whose trade was carried, each paying its share in its own unit; nothing crosses a community boundary. The credit it earns is held by the same six parties, cited by key. Delivery is attested by the witnesses alone; the operator keeps its record of a carry and never attests to one.
 
 ### Protocol Tier
 
@@ -116,7 +118,7 @@ Exit here is cheap by construction. An operator may bar a prosumer from its plat
 
 ### Protocol Tier
 
-Each economic or information platform has a protocol designed for the exchange taking place (i.e. agriculture, a game or research citations). 
+Each economic or information platform has a protocol designed for the exchange taking place (i.e. agriculture, a game or research citations). Each assumes that any substrate host can read what it computes.
 
 ### Orchestrator Tier
 
@@ -139,7 +141,7 @@ A build that crosses any of these is not a smaller JFA; it is different software
 7. No narratives, no identities in the shared record — hashes, types, timestamps and references only.
 8. Reputation is never one number — what others see is the count of exchanges at each rating level.
 9. Reputation decides whether a member trades on trust; a community-wide limit, set by the operator and never derived from reputation, decides how much.
-10. A deployment begins in escrow — collateralized, no negative balances, no counterparty credit extended — and switches to a hybrid or full mutual credit system only after the operator builds capacity, the prosumer network is notified, and the local authorizations to provide mutual credit services are published to the governance layer — or, where the jurisdiction requires none, a finding to that effect is published there instead.
+10. A deployment begins in escrow — collateralized, no negative balances, no counterparty credit extended — and switches to a hybrid or full mutual credit system only after the operator builds capacity, the prosumer network is notified, and the local authorizations to provide mutual credit services are published to the governance layer — or, where the jurisdiction requires none, a finding to that effect is published there instead — and a switch to full mutual credit is ratified by the deployment's prosumers.
 11. No single host, account, or vendor whose removal could stop the network.
 12. A member's positions and history survive any frontend; a community's records survive any operator.
 
