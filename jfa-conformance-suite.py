@@ -97,6 +97,8 @@ REGISTRY = [
     # Substrate layer — the residential posture
     Invariant("SUB-no-inbound-requirement", "substrate", "without requiring open inbound ports or a static address",
               "implementation", "node tests: a node registers, heartbeats, polls for work and reports over outbound connections only - no listening port, no static IP, behind NAT/CGNAT and dynamic addressing; the residential case of L11 (new 2026-09-08)"),
+    Invariant("SUB-redundant-execution", "substrate", "runs on at least two independent hosts",
+              "implementation", "substrate tests: work whose result settles a spend or enters the record executes on at least two independent hosts and their disagreement is rated, never trusted; integrity-assured, not confidentiality-assured (open question 9(c) resolved; new 2026-10-07)"),
     # Record layer — the topology
     Invariant("REC-six-holders", "record", "held by six parties",
               "implementation", "record tests: each of the two prosumers, the operator, the orchestrator, and both witnesses keep records beside the chain (was REC-four-holders; recounted 2026-08-27; orchestrator added and anchor retracked 2026-09-30)"),
@@ -108,6 +110,8 @@ REGISTRY = [
               "implementation", "deployment tests: an operator platform with fewer than two independent witnesses forces the unfederated label (was 8.3; reworded 2026-08-25)"),
     Invariant("REC-witness-work", "record", "compensating the prosumers who keep the record",
               "implementation", "substrate tests: record-keeping and witnessing assigned as compensated substrate work (reworded 2026-08-27; anchor retracked to the frontend market wording 2026-09-17)"),
+    Invariant("REC-witness-draw", "record", "assigned by a draw seeded from the public chain",
+              "implementation", "record tests: witness assignment by a draw seeded from a public-chain block hash, verifiable by anyone; the substrate market pays the witness, never the operator observed (lineage REC-witness-work; new 2026-10-07)"),
     # Covenant layer
     Invariant("COV-adjudicators", "covenant", "the parties to it rate the adjudicator",
               "implementation", "covenant tests: adjudication conduct ratable by the parties to the adjudication - the operator on a platform, the witnesses across platforms (was 7.2-adjudicator-rated; anchor retracked 2026-09-30)"),
@@ -146,7 +150,7 @@ REGISTRY = [
     Invariant("L9", "lines", "set by the operator and never derived from reputation",
               "implementation", "boundary tests: one uniform limit per operator community, set by that operator; never per-member, never derived from reputation (was 9.5; operator-set 2026-08-25)"),
     Invariant("L10", "lines", "published to the governance layer",
-              "instrument", "escrow switch to hybrid or full mutual credit gated by operator capacity, prosumer-network notice, and published local authorizations to provide mutual credit services, or a published finding that none is required (was 8.7; regated 2026-08-25; review->authorization 2026-08-31; null case 2026-08-31)"),
+              "instrument", "escrow switch to hybrid or full mutual credit gated by operator capacity, prosumer-network notice, and published local authorizations to provide mutual credit services, or a published finding that none is required; a switch to full mutual credit further ratified by the deployment's prosumers (was 8.7; regated 2026-08-25; review->authorization 2026-08-31; null case 2026-08-31; ratification 2026-10-07)"),
     Invariant("L11", "lines", "whose removal could stop the network",
               "implementation", "deployment tests: participant-owned hardware; no hosting chokepoint (was 8.1)"),
     Invariant("L12", "lines", "survive any frontend",
