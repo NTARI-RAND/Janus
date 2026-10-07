@@ -115,10 +115,17 @@ REGISTRY = [
               "implementation", "dispute tests: adjudication of apparent covenant breaches performed by platform operators (new 2026-08-25)"),
     Invariant("COV-witness-adjudication", "covenant", "adjudicated at the witness layer",
               "implementation", "dispute tests: cross-platform disputes adjudicated by the exchange's witnesses (new 2026-08-25)"),
+    Invariant("COV-operator-dispute-witnesses", "covenant", "no operator adjudicates a dispute to which it is a party",
+              "instrument", "P1-001 §10.9 routes a prosumer's dispute with its own operator to that platform's standing witnesses; dispute tests: a platform's routing never seats an operator on its own case (new 2026-09-22; lineage COV-operators-adjudicate, COV-witness-adjudication)"),
     # Governance and E&I operational detail (delegates/recall, reopening decided
     # matters, operator economic management, the hybrid definition) moved to the
     # bylaws and companion-article level on 2026-08-27; GOV-delegates, GOV-reopen,
     # EI-operator-economy and EI-hybrid are retired from this registry.
+    # Governance layer — membership and the franchise, returned to the document
+    # on 2026-09-22 because a vote resting on an instrument the architecture can
+    # be read to forbid is a paper check (amendment of 2026-09-22, §1).
+    Invariant("GOV-prosumer-membership", "governance", "by participating as a prosumer on a federated platform",
+              "instrument", "P1-001 §§3.3, 3.8: a prosumer of a federated platform may take up membership of the stewardship organization on the terms its bylaws provide (new 2026-09-22)"),
     # The lines that cannot be crossed
     Invariant("L1", "lines", "always summing to zero",
               "implementation", "economy tests: each exchange moves two balances netting to zero (was 7.1-zero-sum)"),
