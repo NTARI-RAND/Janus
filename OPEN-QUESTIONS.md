@@ -2,7 +2,7 @@
 
 The living open-questions document for the Janus Facing Architecture, per the practice carried forward in the [2026-08-24 concept triage](jfa-concept-triage-2026-08-24.md). A stale document here means the project has stopped describing itself honestly. Each entry carries a status and names the constraints it inherits.
 
-Four entries carry open business: readmission after trust suspension (entry 7, resolved in draft pending adoption of the bylaws amendment), sybil resistance in the governance franchise (entry 8), residential substrate constraints (entry 9, resolved in draft with its confidential-execution part still open), and the pricing of the transport fee (entry 10). The rest were resolved as raised; their record follows.
+Seven entries carry open business: readmission after trust suspension (entry 7, resolved in draft pending adoption of the bylaws amendment, with procedural points open), sybil resistance in the governance franchise (entry 8), residential substrate constraints (entry 9, resolved in draft with its confidential-execution part still open), the pricing of the transport fee (entry 10, its split resolved in draft), record permanence under paid storage (entry 11, resolved in draft), the public chain's construction and funding (entry 12, funding resolved in draft, construction open), and witness adjudication against the operator (entry 13, rule resolved in draft, procedure open). The rest were resolved as raised; their record follows.
 
 ## 1. Contestability
 
@@ -58,6 +58,8 @@ Witnesses hold two jobs — record integrity and the neutral bench for cross-pla
 
 The dispute-mechanics design lets an adjudicator suspend a member's trust gate — they trade prepaid or collateralized "until the covenant readmits them." Resolved at the instrument level: readmission runs through the governance venue's appeal procedure, drafted as bylaws §2.9 (P1-001 v7.1 draft) — submission to the office of the Vice President with no PII, a one-week rating period in the appropriate Federation Channel where each member of the Vice President's circle may cast one rating on the offense, no readmission on a mode of −1, the Vice President's delegate deciding when no ratings are cast, and resubmission after a one-week cooldown. Banned operators re-enter by the same path. Final resolution follows adoption of the bylaws amendment by the membership.
 
+**Superseded in draft (2026-10-02).** The procedure now stands in bylaws v1.1 §12.5 (draft): submission to the office of the Vice President; a one-week rating period in the concerned federation channel, administered by the office of the President; one rating each, a −1 carrying its comment; ratings, where cast, decide the petition — denied on a mode of −1, granted otherwise — and the federation's delegate decides only where no ratings are cast (principal's decision of 2026-10-02); resubmission after a ten-week cooldown; an appeal of expulsion decided within seven days. Open: (a) a tie for the mode that includes −1; (b) a challenge under §11.4, where the rated offense is the operator's, so that a −1 mode would deny the challenger rather than uphold the challenge; (c) a single rating, even the petitioner's own, now decides; (d) the seven-day limit cannot hold when the decision waits on a one-week rating period; (e) at the end of an expulsion term, no body sets the length of a further term, and the member's vote while the docket is pending is unstated; (f) "the concerned federation channel" is undefined; (g) whether a rating is a vote for §4.5 and §6.5.
+
 **Inherits:** whether-vs-how-much (lines 8-9); trust suspension outcome (jfa-dispute-mechanics.md §4); appeals to governance venue.
 
 ## 8. Sybil resistance in the governance franchise
@@ -88,13 +90,13 @@ Decided: carrier constraints are treated as a physical, adversarial environment 
 
 ## 10. Pricing the transport fee
 
-**Status:** open (2026-09-11)
+**Status:** open (2026-09-11); the split resolved in draft (2026-10-01)
 
 The Record layer now cites a third sovereign spend — the orchestrator's transport fee — escrowed with the trade and released by the same citation. That much is settled: the fee follows delivery, the orchestrator cannot release its own, and it settles in the home ledger so no value crosses a community boundary. What the fee *is* remains open.
 
 Whether it is a fixed offer or may be metered per byte, per hop or per witness. A fixed offer is legible and cheap to verify; metering prices a long carry honestly but gives the orchestrator a quantity it reports about itself, which is the shape the six-fold witnessing exists to avoid.
 
-Whether a trade between prosumers of two communities splits the fee across both home ledgers or charges the initiating side. Splitting spreads the cost the way the benefit falls; charging the initiator keeps one settlement in one ledger and avoids a second escrow that can fail independently.
+Whether a trade between prosumers of two communities splits the fee across both home ledgers or charges the initiating side. Splitting spreads the cost the way the benefit falls; charging the initiator keeps one settlement in one ledger and avoids a second escrow that can fail independently. **Resolved in draft (2026-10-01):** both home ledgers split the fee, each prosumer paying their share in their own unit; the official document's Record layer now says so, and stops counting spends: if delivery is not attested, every spend reverts.
 
 Whether the paid witnesses earn credit under this same six-fold rule, and if so who witnesses them. Applied naively the rule recurses without bottom. Either witnessing is compensated substrate work already covered by the existing record-layer provision, or it needs a terminating case that has not been written.
 
@@ -103,3 +105,35 @@ Whether the operator's witness slot is mandatory, given operators are insulated 
 What the default commitment window is before escrow reverts. Too short and prosumer hardware with churn, sleep and relay fails honest carries; too long and capacity sits escrowed against a carry nobody will complete.
 
 **Inherits:** value stays home and cross-community exchange as paired sovereign spends (lines 3–5); privacy floor (line 7, entry 2); no chokepoint (line 11); witness minimum (entry 4); witnessing as compensated substrate work (entry 6).
+
+## 11. Record permanence under paid storage
+
+**Status:** resolved in draft (2026-10-01)
+
+Record permanence is bounded by paid storage. The record layer is compensated for its storage, so each holder's copy — prosumer, operator, witness, orchestrator — lasts as long as its bill is paid and ends with that holder's death or insolvency. Automation may extend some copies, but plausibly none lasts more than a few hundred years. The official document says what was committed "stays committed" (Record layer), and the dispute-mechanics design says defaults are "Recorded forever" (§5). Raised by the principal on 2026-09-30 as not necessarily a defect; the wording should match the mechanism.
+
+**Resolved in draft (2026-10-01):** the official document's Record layer now says that nothing is erased but no single copy is the record, names each copy's lifetime — the orchestrator's with the last paid carry, the witnesses' while the operator pays them, the parties' own until they stop keeping them, the chain's while its storage is funded — and claims for the chain only what its funding supports; the dispute-mechanics design's "Recorded forever" is reworded to match. Who funds the chain, and for how long, is settled under entry 12.
+
+**Inherits:** append-only record (line 6); positions and history survive any frontend (line 12); six holders (REC-six-holders); record-keeping as compensated substrate work (REC-witness-work, entry 6); defaults annotated, never erased (dispute-mechanics design §5).
+
+## 12. The public chain: construction, funding and lifetime
+
+**Status:** funding resolved in draft (2026-10-01); construction open
+
+The corpus fixes the chain's topology — one append-only sequence of salted hashes, types, timestamps and references, distributed across the substrate, serving everyone who holds no record of their own, and binding cross-community spends (line 5) — but not its construction: how entries are ordered, who may append, how append rights are rationed, and what happens under partition are in none of the official document, the registry, the dispute-mechanics design or this record. The Record curriculum article names the gap and makes the construction decision the Record group's first deliverable. Nor did the corpus say who pays for the chain's storage or how long it lasts: the Record frontend tier makes storage a market, "compensating the prosumers who keep the record", without naming the buyer.
+
+Decided by the principal on 2026-10-01: the commitments of every exchange carried by an orchestrator are copied to the chain and stored on substrate that the stewardship organization of the Governance layer funds — in NTARI's instance, the Institute, under bylaws §9.19 — so that the record which binds communities to one another is paid for by none of them. The official document's Record layer now says so, and claims for the chain only the lifetime its funding supports.
+
+Open: (a) construction, within line 11 (no chokepoint), line 7 (no identities) and P-lean-code — the Byzantine-agreement setting the curriculum article lays out; (b) how the Institute buys substrate storage without holding credit (bylaws §9.7) — whether the storage market takes exogenous money for this service, or the Institute funds the buyers; (c) what the funding must look like to satisfy bylaws §13.1 and §13.3 — the entries are also held by the six parties and any other party may fund storage of the same chain, so the Institute's withdrawal must cost the record nothing; (d) resolved (2026-10-02): commitments of exchanges no orchestrator carries are stored by no one, because a frontend that is not federated is not a member; the bylaws draft no longer assigns them.
+
+**Inherits:** cross-community exchange bound by the chain (line 5); append-only (line 6); privacy floor (line 7, entry 2); no chokepoint (line 11); public-chain record topology (REC-public-chain); lean, auditable code (P-lean-code); the Institute's money is not the federation's (bylaws §9.7); self-binding and succession (bylaws §13.1, §13.3); sybil resistance (entry 8); record permanence (entry 11).
+
+## 13. Witness adjudication against the operator
+
+**Status:** rule resolved in draft (2026-10-02); procedure open
+
+Decided by the principal on 2026-10-02: a dispute between a prosumer and the operator of its own platform is ruled on by witnesses, never by the operator. The official document's Covenant layer and bylaws §10.9 now say so, and the dispute-mechanics design's §3 carries the case. An earlier draft's third witness, drawn at random for each dispute so the bench would be odd and partly unknown to the operator in advance, was not carried; it rests on undecided rules for witness independence and the witness draw.
+
+Raised by the verification of that decision and open: (a) neutrality — the witnesses are paid by the operator they now judge, their copies of the record last while it pays them, and it rates them as a party, so the bench's pay, evidence and part of its reputation sit with the respondent; "independent" is nowhere defined; (b) a split bench — the minimum bench is two and nothing says what a one-to-one split yields; (c) filing — the design gives standing to record holders of an exchange and its filing commitment references an exchange, but custody, the credit limit and Article X duties need not involve one; (d) the dispute window — under bylaws §10.5 the operator's own rules set it for disputes against itself; (e) execution — the operator runs the ledger and executes every remedy, including one against itself, with no stated consequence if it does not; (f) forum — a prosumer contesting its own operator's switch to mutual credit is sent both to the witnesses (§10.9) and to the federation's ratings (§11.4, §12.5); (g) recusal — nothing stops a party from rating or voting on its own referral or petition in a federation; (h) discipline — witnesses are rated, but no text gives those ratings any effect on assignment.
+
+**Inherits:** cross-platform witness adjudication (COV-witness-adjudication, entry 6); witness minimum (REC-witness-minimum, entry 4); witnessing as compensated substrate work (REC-witness-work); adjudicators rated (COV-adjudicators); escrow custody disclosed (bylaws §10.2 Custody); line 10.

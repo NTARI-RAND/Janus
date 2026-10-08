@@ -98,8 +98,8 @@ REGISTRY = [
     Invariant("SUB-no-inbound-requirement", "substrate", "without requiring open inbound ports or a static address",
               "implementation", "node tests: a node registers, heartbeats, polls for work and reports over outbound connections only - no listening port, no static IP, behind NAT/CGNAT and dynamic addressing; the residential case of L11 (new 2026-09-08)"),
     # Record layer — the topology
-    Invariant("REC-six-holders", "record", "held six ways",
-              "implementation", "record tests: each transactor, the operator, and both witnesses keep records beside the chain (was REC-four-holders; recounted 2026-08-27)"),
+    Invariant("REC-six-holders", "record", "held by six parties",
+              "implementation", "record tests: each of the two prosumers, the operator, the orchestrator, and both witnesses keep records beside the chain (was REC-four-holders; recounted 2026-08-27; orchestrator added and anchor retracked 2026-09-30)"),
     Invariant("REC-public-chain", "record", "one public chain distributed across the substrate",
               "implementation", "record tests: single public chain on substrate serving non-parties (reverses old 9.3)"),
     Invariant("REC-truth-not-currency", "record", "never a currency unit",
@@ -109,8 +109,8 @@ REGISTRY = [
     Invariant("REC-witness-work", "record", "compensating the prosumers who keep the record",
               "implementation", "substrate tests: record-keeping and witnessing assigned as compensated substrate work (reworded 2026-08-27; anchor retracked to the frontend market wording 2026-09-17)"),
     # Covenant layer
-    Invariant("COV-adjudicators", "covenant", "rated on their conduct by both prosumers",
-              "implementation", "covenant tests: adjudication conduct ratable by both parties (was 7.2-adjudicator-rated)"),
+    Invariant("COV-adjudicators", "covenant", "the parties to it rate the adjudicator",
+              "implementation", "covenant tests: adjudication conduct ratable by the parties to the adjudication - the operator on a platform, the witnesses across platforms (was 7.2-adjudicator-rated; anchor retracked 2026-09-30)"),
     Invariant("COV-operators-adjudicate", "covenant", "platform operators adjudicate between their prosumers",
               "implementation", "dispute tests: adjudication of apparent covenant breaches performed by platform operators (new 2026-08-25)"),
     Invariant("COV-witness-adjudication", "covenant", "adjudicated at the witness layer",
@@ -171,8 +171,10 @@ TIER_TITLES = ["Protocol Tier", "Orchestrator Tier", "Frontend Tier"]
 LINE_COUNT = 12
 
 # Product names must not appear anywhere: the document is product-agnostic.
+# LBTAS is the covenant, not a product, and may be named wherever the Covenant
+# layer label would otherwise be undefined (principal's decision, 2026-09-30).
 PRODUCT_NAMES = ["Sohocloud", "SoHoLINK", "Cloudy", "Slack", "Discord", "Mycelium",
-                 "LBTAS", "Agrinet", "NTARI/OS", "GitHub", "Wix", "Fruitful"]
+                 "Agrinet", "NTARI/OS", "GitHub", "Wix", "Fruitful"]
 
 # Concepts the 2026-08-24 triage retired or reversed; their anchor phrases
 # must NOT reappear in the document.
