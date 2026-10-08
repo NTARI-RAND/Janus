@@ -1,0 +1,132 @@
+> Traduction communautaire (version préliminaire) — Politique P2-002 de NTARI, Diffusion mondiale multilingue. Source : P1-004_Substrate-Constraints_v0.1.md (original en anglais, instantané du 2026-10-05). Version préliminaire communautaire assistée par machine, en attente de révision par le mainteneur régional conformément à P2-002 §3.1. Les spécifications techniques centrales demeurent en anglais conformément au §2.2.
+>
+> **L'instrument opérant est le texte anglais, P1-004_Substrate-Constraints_v0.1.md. Cette traduction est fournie à des fins de compréhension et n'a aucun effet juridique ; en cas de divergence avec l'anglais, l'anglais prévaut.**
+>
+> Vous avez repéré une erreur dans cette traduction ? Votre correction est une
+> contribution bienvenue et appréciée : créez un fork du dépôt du projet NTARI
+> (https://github.com/NTARI-RAND/Janus) et ouvrez une pull request, ou
+> écrivez-nous à info@ntari.org.
+
+# Routé, non négocié : le substrat résidentiel sous les contraintes des fournisseurs d'accès
+
+**Network Theory Applied Research Institute**
+Identifiant du document : P1-004 · Version : 0.1 (projet) · Septembre 2026
+
+*Document d'accompagnement du document officiel de l'architecture bifrons. Ce texte analyse ; il ne régit jamais. Lorsqu'il recommande une règle, celle-ci ne prend effet que par amendement du document officiel conformément au §9.2 des statuts et de son registre conformément au §9.16.*
+
+## Résumé
+
+L'architecture bifrons place sa couche substrat sur du matériel grand public situé dans des domiciles, des bureaux et des espaces de stockage. Trois faits physiques du haut débit grand public s'y opposent : les connexions portent des adresses dynamiques derrière une traduction d'adresses réseau de niveau fournisseur d'accès, leurs politiques d'utilisation acceptable interdisent les serveurs entrants, et leur bande passante montante ne représente qu'une fraction de leur bande passante descendante. Un quatrième fait s'oppose au modèle de confiance : un hôte qui a la possession physique d'une machine peut lire sa mémoire, et les fonctions d'exécution confidentielle qui l'empêcheraient sont absentes des processeurs grand public par décision des fabricants.
+
+Ce texte soutient que les contraintes des fournisseurs d'accès sont mieux traitées comme un environnement physique hostile à contourner par le code que comme une condition de politique publique à négocier juridiquement, et il expose les arguments empiriques en faveur de ce choix. Il énonce ensuite ce que leur contournement exige réellement, distingue les aspects que la technique résout de ceux qu'elle ne résout pas, et consigne une question juridique à laquelle aucune conception de protocole ne peut répondre.
+
+## 1. Le choix de l'arène
+
+Il existe deux façons de répondre à une contrainte imposée par un fournisseur d'accès réseau. Modifier les obligations du fournisseur d'accès par la loi et la réglementation, ou construire un logiciel qui n'a pas besoin que le fournisseur d'accès change. Les propres recherches de l'architecture indiquent de laquelle il faut attendre des résultats.
+
+Les travaux de NTARI sur la vitesse de l'information démocratique décrivent un décalage structurel : l'information et l'infrastructure évoluent à la vitesse du réseau tandis que la synthèse démocratique reste arrimée aux cycles électoraux (NTARI, 2025a). L'effet Reine Rouge d'Acemoglu et Robinson en nomme la conséquence — lorsqu'un coureur distance l'autre, le corridor est perdu (Acemoglu & Robinson, 2019). La réglementation du haut débit aux États-Unis en est un exemple net. Deux décennies de réglementation contestée sur la neutralité du réseau ont pris fin le 2 janvier 2025, lorsque la Cour d'appel du sixième circuit a annulé dans son intégralité l'ordonnance de 2024 de la Federal Communications Commission, jugeant que la Commission n'avait pas l'autorité légale de qualifier le haut débit de service de télécommunications (Ohio Telecom Association v. FCC, 2025). S'appuyant sur l'arrêt Loper Bright, la cour a supprimé la déférence qui avait permis à la règle de survivre à des contestations antérieures. Ce qui subsiste au niveau fédéral est un régime de divulgation : la Commission peut exiger d'un fournisseur qu'il publie ses pratiques de gestion du trafic, mais ne peut pas les interdire. Huit États légifèrent dans ce vide, ce qui signifie qu'il n'existe actuellement aucune réponse juridique uniforme à l'échelle nationale et que les autorisations d'un déploiement dépendent de l'emplacement de ses nœuds.
+
+Ce bilan n'est pas un argument contre l'engagement civique. C'est un argument contre la dépendance. Un protocole dont la viabilité attend une règle favorable est un protocole qui ne fonctionne pas pendant des années d'affilée, et les contreparties dans cette arène sont des acteurs historiques dont la capacité de lobbying dépasse celle de cet institut de plusieurs ordres de grandeur. Un logiciel écrit pour fonctionner selon les conditions que les fournisseurs d'accès imposent déjà fonctionne aujourd'hui et continue de fonctionner quel que soit le sens dans lequel la règle évolue.
+
+**La position.** Les contraintes des fournisseurs d'accès constituent une contrainte physique immuable aux fins de la conception. Le lobbying peut se poursuivre en tant qu'affaire civique, et ce texte ne prend pas position contre lui, mais il n'est jamais une dépendance de l'architecture et aucun plan de déploiement ne peut présumer de son succès.
+
+Une réserve a sa place ici plutôt que dans une note de bas de page. Ce choix est possible pour les trois contraintes ci-dessous parce que chacune a une réponse technique. Il n'est pas possible pour toutes les contraintes, et la dernière section du texte en nomme une pour laquelle il ne l'est pas.
+
+## 2. L'accessibilité sans serveur
+
+**La contrainte.** Une connexion résidentielle n'est pas un environnement d'hébergement. Son adresse change, elle se trouve couramment derrière une traduction d'adresses réseau de niveau fournisseur d'accès qui n'offre aucun chemin entrant, et sa politique d'utilisation acceptable interdit généralement l'exploitation de serveurs. La politique résidentielle de Comcast est représentative : elle interdit les équipements qui fournissent « du contenu réseau ou tout autre service à quiconque en dehors du réseau local de vos locaux, sauf pour votre usage résidentiel personnel et non commercial », et cite comme exemples l'hébergement web, le partage de fichiers et les serveurs mandataires (Comcast, 2021).
+
+**Ce à quoi répond la technique.** Tout ce qui concerne l'accessibilité. Un nœud qui n'accepte jamais de connexion entrante n'est affecté ni par l'adressage dynamique, ni par la traduction de niveau fournisseur d'accès, ni par l'interdiction des serveurs entrants, car aucun de ces éléments ne restreint les connexions sortantes. Le nœud ouvre la connexion vers le coordinateur, la maintient ou la rouvre selon un calendrier, et demande du travail.
+
+Le protocole de référence a déjà cette forme et n'a pas eu besoin d'être modifié. Ses opérations côté nœud sont `SubmitListing`, `Heartbeat`, `PollJobs`, `Decline`, `ReportJob` et `Fees` — chacune d'elles étant une requête que le nœud initie. Le coordinateur implémente une interface enfichable et répond ; il ne contacte jamais le nœud. Ce qui manquait n'était pas le mécanisme mais l'engagement. Une propriété qui tient par un hasard de l'implémentation actuelle peut être perdue lors de la prochaine refonte ; le document officiel l'énonce donc désormais et le registre la rattache :
+
+> Les nœuds rejoignent ce marché par des réseaux superposés chiffrés (overlays) et une interrogation sortante (polling), sans exiger de ports entrants ouverts ni d'adresse statique ; la connexion telle qu'un fournisseur résidentiel la livre suffit. La ligne 11 en dépend : un substrat qui ne fonctionnerait que là où un fournisseur autorise le service entrant porterait un point d'étranglement chez chaque fournisseur.
+
+Enregistré sous `SUB-no-inbound-requirement`, rattaché à l'implémentation. Un dépôt le rattache en livrant des tests qui citent l'identifiant et prouvent qu'un nœud accomplit la boucle d'emploi complète — enregistrement, battement de cœur, interrogation, exécution, rapport — sans socket d'écoute, sans adresse statique, et avec une adresse traduite et changeante devant lui. Tant que de tels tests n'existent pas, l'invariant est déclaré non rattaché conformément au §9.15 des statuts, et l'affirmation de ce texte au sujet de l'implémentation de référence est exactement l'auto-attestation que le §9.6 refuse de reconnaître.
+
+Le raisonnement lié à la ligne 11 en est la partie substantielle, et c'est pourquoi cela relève du document plutôt que d'un guide de déploiement. La ligne 11 interdit tout hôte, compte ou fournisseur unique dont le retrait pourrait arrêter le réseau. Un substrat qui exigerait un service entrant ne fonctionnerait que là où un fournisseur d'accès l'autorise, faisant de chaque fournisseur d'accès un droit de veto — un point d'étranglement par fournisseur, distribué en apparence et centralisé en réalité.
+
+**Trois remarques sur le mécanisme.** Premièrement, sur le transport : les connexions HTTPS et WebSocket ordinaires sur le port 443 sont le bon vecteur, car c'est ce que le chemin réseau autorise de manière fiable et ce que tout client web émet déjà. Ce texte s'abstient délibérément de décrire ce trafic comme déguisé. Ce n'est pas du camouflage ; c'est le protocole standard pour cette tâche, et cette honnêteté importe, car présenter les choses comme du camouflage invite à croire qu'une mesure technique a répondu à une question d'autorisation, ce que la section 5 montre ne pas être le cas.
+
+Deuxièmement, sur la version six du protocole internet : elle supprime la traduction de niveau fournisseur d'accès là où les deux extrémités en disposent, et son adoption a dépassé la moitié du trafic de Google à l'échelle mondiale le 28 mars 2026, les États-Unis avoisinant 57 pour cent (Google, 2026). Il vaut la peine de l'utiliser, et de n'en rien exiger. L'adressabilité universelle n'est pas la même chose que l'accessibilité universelle — une adresse routable mondialement se trouve toujours derrière un pare-feu qui rejette les paquets entrants non sollicités, et un nœud qui suppose le contraire échoue sur la moitié restante des connexions. La version six est une optimisation de la posture sortante, jamais un substitut à celle-ci.
+
+Troisièmement, sur les réseaux superposés chiffrés. Les réseaux superposés maillés sont une véritable réponse aux chemins de nœud à nœud dont le coordinateur ne devrait pas être l'intermédiaire, et des implémentations nommées existent. Ils ne peuvent pas entrer dans le module de protocole. Le principe de code sobre limite le logiciel de protocole à la bibliothèque standard de son langage afin qu'il reste auditable dans son intégralité, et le protocole de référence satisfait actuellement ce principe de manière stricte — son module ne déclare aucune dépendance, ce qui est la propriété qui empêche tout coordinateur unique de devenir un pivot. Une volumineuse bibliothèque de réseau superposé à l'intérieur de ce module y mettrait fin. Un réseau superposé a donc sa place sous le protocole, comme transport de niveau déploiement, choisi pour chaque déploiement et remplaçable, ou bien il est implémenté de façon minimale dans la feuille. La formulation du document est délibérément générique pour la même raison que le document ne porte aucun nom de produit.
+
+Il existe une tension connexe que l'institut ne devrait pas masquer. Le déploiement du coordinateur de référence se trouve actuellement derrière un unique réseau commercial de diffusion de contenu, et la conception du transport de la pile agricole suppose le tunnel de ce fournisseur. C'est commode, ce n'est pas conforme à l'esprit de la ligne 11, et c'est un point d'étranglement exactement du type que cette section supprime au niveau du fournisseur d'accès tout en le laissant en place une couche plus haut. Cela sort du champ du présent texte et relève de la liste des problèmes ouverts du substrat.
+
+## 3. L'asymétrie de bande passante
+
+**La contrainte.** Les connexions grand public sont asymétriques par conception, souvent dans un rapport de dix pour un ou pire, et de plus en plus facturées au volume. Un nœud ne peut pas servir d'origine de contenu généraliste, et une charge de travail qui expédie de volumineuses images à chaque hôte passera son temps en transfert plutôt qu'en calcul.
+
+**Ce à quoi répond la technique.** En grande partie, en gardant les charges utiles petites plutôt qu'en les déplaçant plus vite. Trois choix de conception font le travail, et leurs effets se cumulent.
+
+**Le trafic de coordination est petit par construction.** La ligne 7 tient les récits et les identités hors du registre partagé — empreintes, types, horodatages et références uniquement. Un plancher de confidentialité adopté pour des raisons de confidentialité a une conséquence sur la bande passante : le trafic de la couche Registre est borné par la taille des empreintes et des en-têtes plutôt que par la taille de ce qui a été échangé. Le contenu reste chez les parties. Les messages de coordination qui portent le marché sont une poignée de structures signées sur un encodage canonique en octets. Rien ici ne met à l'épreuve une liaison montante domestique, et c'est en ce sens que les paquets sont légers : les propres transmissions de l'architecture sont légères parce qu'une ligne qui ne peut être franchie les y oblige.
+
+**Le travail est expédié sous forme de modules en bac à sable, et non d'images de machine.** C'est la seule recommandation de ce texte qui demande à l'implémentation de référence de changer plutôt que de conserver sa forme. L'agent de nœud actuel exécute les tâches au moyen d'un exécuteur de conteneurs, ce qui signifie qu'une première tâche sur un nœud neuf télécharge des couches se mesurant en centaines de mégaoctets avant que le moindre travail ne commence. Un module WebAssembly pour la même tâche se mesure en mégaoctets ou moins, démarre en quelques millisecondes, porte un modèle de capacités fondé sur le refus par défaut plutôt que sur l'exclusion volontaire, et est portable sur le matériel grand public hétérogène que le substrat prévoit au lieu d'exiger une architecture correspondante. Un environnement d'exécution sans dépendances natives garde l'agent de nœud auditable, dans le même esprit que le module de protocole. Les conteneurs devraient rester disponibles pour les charges de travail qui ont réellement besoin d'un environnement d'exploitation complet, sur les nœuds dont les connexions et les opérateurs peuvent les supporter, et devraient cesser d'être le choix par défaut. Le compromis est réel et doit être énoncé : WebAssembly coûte un certain débit par rapport à l'exécution native et ne peut pas héberger sans modification n'importe quel logiciel existant. Pour un travail irrégulier, léger, de capteurs et de coordination — le schéma agricole que cette architecture sert en premier — ce compromis est favorable.
+
+**Les tâches sont mises en file d'attente localement.** Un nœud conserve sa file d'attente et ses rapports en attente dans un stockage embarqué local et les écoule lorsque la connexion le permet. La conséquence est qu'une liaison montante médiocre retarde le travail au lieu de le perdre, et qu'une connexion intermittente cesse d'être éliminatoire. Cela compte au-delà de la bande passante : le pilote agricole prévoit déjà les lacunes de connectivité rurale avec une saisie hors ligne et une synchronisation ultérieure, et la même propriété fait d'un nœud dans ce contexte un participant plutôt qu'un handicap.
+
+Aucun de ces trois choix n'est une invention nouvelle et aucun n'est enregistré comme invariant. Ils constituent une posture de conception, consignée ici afin qu'un déploiement puisse être évalué à leur aune et que le raisonnement survive aux personnes qui l'ont tenu. Le conseil pourrait souhaiter examiner si le choix par défaut du module plutôt que de l'image devrait devenir un invariant enregistré ; ce texte ne le recommande pas encore, car l'implémentation de référence ne le satisfait pas aujourd'hui et un registre qui devance le code enseigne une mauvaise leçon sur ce que signifie l'enregistrement.
+
+## 4. L'exécution sur du matériel contrôlé par l'hôte
+
+**La contrainte.** Un prosommateur qui héberge un nœud a la possession physique de la machine. Il peut lire sa mémoire, inspecter son disque et observer ce qu'elle calcule. La réponse conventionnelle est l'exécution confidentielle matérielle, et elle n'est pas disponible à cette couche en raison de la stratégie produit des fabricants plutôt que de son coût. Intel a déprécié les Software Guard Extensions sur les processeurs clients à partir de la onzième génération de sa gamme Core et les conserve sur ses composants pour serveurs et pour le cloud (Intel, 2021). La Secure Encrypted Virtualization d'AMD, y compris la génération à pagination imbriquée, est une fonctionnalité des serveurs EPYC et n'est pas présente sur Ryzen ni sur Threadripper (AMD, 2021). Exiger l'une ou l'autre exclurait pratiquement tout le matériel grand public et réadmettrait précisément le contrôle d'accès par les centres de données que la couche substrat existe pour supplanter. Exiger des enclaves ne sécuriserait pas le substrat en tant que bien commun ; cela l'abolirait.
+
+**Ce à quoi répond la technique, et jusqu'où.** Pas à la confidentialité face à un hôte déterminé. C'est dans cette section que la méthode du texte change, et le dire clairement est plus utile qu'un palliatif présenté avec plus d'assurance qu'il n'en mérite.
+
+La réponse dont dispose l'architecture n'est pas de faire confiance à l'hôte, mais de rendre la malhonnêteté visible et coûteuse, à l'aide de mécanismes que la pile se doit déjà de fournir. Trois volets :
+
+**Exécution redondante avec désaccord noté.** Une tâche d'importance est envoyée à deux hôtes indépendants ou plus, et leurs résultats sont comparés. L'accord est une preuve ; le désaccord est un événement qui entre dans le pacte, où la note la plus basse de l'échelle signifie déjà qu'une partie a été lésée, exploitée ou servie avec une intention malveillante. Le point d'ancrage de l'application existe : le témoignage est un travail rémunéré du substrat, et le substrat doit un type de travail dans lequel les témoins sont désignés aléatoirement afin qu'aucune partie à un échange ne puisse choisir son témoin. L'exécution redondante est ce même schéma de marché appliqué au calcul plutôt qu'à la tenue des registres, et la désignation aléatoire est ce qui fait de la collusion entre les exécutants d'une tâche une affaire de hasard plutôt que de choix. Le coût est un multiple du calcul, payé délibérément pour la catégorie de travail qui le justifie, et il achète la détection plutôt que la prévention — la même posture que la couche Registre adopte déjà face à la falsification.
+
+**La minimisation des données comme contrôle principal.** Un hôte ne peut pas récupérer ce qui n'arrive jamais. La ligne 7 tient déjà les identités et les récits hors du registre partagé ; la discipline correspondante à la couche substrat est qu'une tâche porte le moins de données qui lui permettent d'aboutir, que les entrées sensibles soient réparties entre plusieurs hôtes là où le travail le permet, et qu'une charge de travail exigeant un vaste ensemble cohérent de données sensibles sur des personnes identifiables est une charge de travail destinée à du matériel dont l'opérateur en répond. Cette dernière clause est une réelle limite à la portée du substrat et devrait être énoncée comme telle plutôt que contournée par l'ingénierie.
+
+**L'attestation comme capacité facultative, tarifée et notée.** Là où un acheteur a réellement besoin d'une confidentialité garantie par le matériel, la réponse est un marché, non une obligation. Un hôte disposant d'un tel matériel annonce cette capacité dans son offre, les acheteurs qui en ont besoin la paient, et l'allégation est soumise à la même notation du pacte que toute autre déclaration faite par un hôte. Cela garde le plancher ouvert au matériel grand public tout en laissant le plafond s'élever partout où un hôte a investi, et cela place la décision chez la partie qui supporte le risque.
+
+**Statut.** C'est la partie de la revue de septembre 2026 qui n'est pas résolue. La position ci-dessus est argumentée, non adoptée : aucun invariant n'est enregistré, et un identifiant candidat pour l'exécution redondante est noté dans le document des questions ouvertes comme décision revenant au conseil conformément au §9.16. L'enregistrer obligerait le substrat à construire un type de travail qu'il n'a pas construit. L'état honnête est que l'architecture dispose d'une réponse cohérente à l'observation par l'hôte qui exploite la machine et ne s'y est pas encore engagée.
+
+## 5. Ce à quoi la technique ne répond pas
+
+L'interrogation sortante supprime complètement le problème des serveurs entrants. Elle ne supprime pas le problème de l'utilisation acceptable, et ce texte induirait ses lecteurs en erreur s'il laissait entendre le contraire.
+
+Relisez la politique représentative. Elle interdit les équipements servant quiconque en dehors du réseau des locaux « sauf pour votre usage résidentiel personnel et non commercial ». L'interdiction des serveurs entrants est une affirmation sur les ports et trouve sa réponse dans le fait de n'en utiliser aucun. Le volet non commercial est une affirmation sur la rémunération, et la rémunération est précisément l'enjeu : un prosommateur qui héberge du substrat est payé, en monnaie fiduciaire dans l'implémentation actuelle et en crédit communautaire plus tard. Aucun choix de transport, numéro de port ou chiffrement ne change ce fait, et une conception qui prétend l'avoir contourné a confondu un mécanisme avec une autorisation. La question est de savoir si une participation rémunérée sur une ligne résidentielle relève de ce volet, et la réponse est une lecture de clauses contractuelles dans une juridiction, non une propriété du logiciel.
+
+L'institut devrait la soumettre à l'examen d'un conseil juridique, et l'occasion naturelle se présente : le pilote combiné chaleur et calcul a déjà soumis au conseil juridique deux questions ouvertes portant sur le point de savoir si un nœud générant des revenus dans un domicile modifie la situation du foyer vis-à-vis de son assureur au regard des exclusions pour usage professionnel. La question des conditions du fournisseur d'accès est la même question adressée à un autre contrat, et elle devrait figurer dans le même dossier plutôt que d'attendre le sien. Ses formes pratiques méritent d'être nommées dès maintenant — si une connexion de niveau professionnel est requise, si un cadrage de minimis ou de partage des coûts tient, si la réponse varie suffisamment selon le fournisseur d'accès pour que les consignes aux opérateurs de nœuds doivent être régionales, et ce qu'un déploiement dit aux hôtes potentiels avant leur inscription.
+
+La dernière d'entre elles relève autant du pacte que du droit. Un prosommateur a le droit de savoir ce que la participation peut signifier pour son propre contrat de service avant de s'y engager, et l'engagement propre de l'architecture envers une relation notée et divulguée entre opérateur et prosommateur fait du silence sur ce point le mauvais choix par défaut.
+
+## 6. Où cela a abouti
+
+| Niveau | Ce qui a changé | Application |
+|---|---|---|
+| Document officiel | Le niveau protocole du substrat énonce la posture sortante, sans exigence d'entrée, et la rattache à la ligne 11 | La suite vérifie le texte ; elle passe à 26 invariants |
+| Registre de conformité | `SUB-no-inbound-requirement` ajouté, rattaché à l'implémentation | Non rattaché tant que des tests de nœud ne citent pas l'identifiant (§9.15) |
+| Document des questions ouvertes | L'entrée 9 consigne la contrainte, les résolutions, la partie ouverte et la question juridique | §9.3 |
+| Ce texte | La posture en matière de bande passante et d'exécution confidentielle, argumentée et non rattachée | Aucune ; il analyse et ne régit pas |
+
+Deux obligations procédurales s'attachent à la modification du document et ne sont pas acquittées par ce texte. Un amendement du document officiel et de son registre se fait conformément aux §9.2 et §9.16 des statuts, et pendant l'amorçage le conseil fondateur exerce ce pouvoir, chaque acte étant consigné au registre de gouvernance comme acte d'amorçage conformément au §16.1, ouvert au sociétariat comme toute autre décision. La suite passe au regard du texte amendé, ce que le §9.2 exige avant l'adoption, et les versions en sept langues prévues par P2-002 ont été mises à jour en même temps que l'original anglais.
+
+## Sources
+
+Acemoglu, D., & Robinson, J. A. (2019). *The Narrow Corridor: States, Societies, and the Fate of Liberty*. Penguin Press.
+
+AMD. (2021, 15 mars). *AMD EPYC 7003 series processors set new standard*. https://www.amd.com/en/newsroom/press-releases/2021-3-15-amd-epyc-7003-series-cpus-set-new-standard-as-hig.html
+
+Comcast. (2021, 1er février). *Acceptable use policy for Xfinity Internet (residential)*. https://www.xfinity.com/corporate/customers/policies/highspeedinternetaup
+
+Google. (2026). *IPv6 adoption statistics*. https://www.google.com/intl/en/ipv6/statistics.html
+
+Intel. (2021). *Intel SGX deprecation on client processors* [discussion sur Intel Community]. https://community.intel.com/t5/Intel-Software-Guard-Extensions/Intel-SGX-deprecated-in-11th-Gen-processors/m-p/1351848
+
+Internet Society. (2026, avril). *18 years later, IPv6 reaches majority*. https://pulse.internetsociety.org/en/blog/2026/04/18-years-later-ipv6-reaches-majority/
+
+Network Theory Applied Research Institute. (2025a, octobre). *Addressing democratic information velocity* (P1-002). https://www.ntari.org/post/ntari-whitepaper-addressing-democratic-information-velocity
+
+Network Theory Applied Research Institute. (2025b, juin). *The material culture of democratic deliberation*. https://www.ntari.org/post/the-material-culture-of-democratic-deliberation
+
+*Ohio Telecom Association v. FCC*, Nos. 24-7000 et al. (6th Cir. Jan. 2, 2025). Analyse du Congressional Research Service : https://www.congress.gov/crs-product/LSB11264
+
+---
+
+*Network Theory Applied Research Institute, Inc. — 501(c)(3) — EIN 92-3047136 — info@ntari.org*
+
+*Spécification : CC BY-SA 4.0*
