@@ -97,28 +97,39 @@ REGISTRY = [
     # Substrate layer — the residential posture
     Invariant("SUB-no-inbound-requirement", "substrate", "without requiring open inbound ports or a static address",
               "implementation", "node tests: a node registers, heartbeats, polls for work and reports over outbound connections only - no listening port, no static IP, behind NAT/CGNAT and dynamic addressing; the residential case of L11 (new 2026-09-08)"),
+    Invariant("SUB-redundant-execution", "substrate", "runs on at least two independent hosts",
+              "implementation", "substrate tests: work whose result settles a spend or enters the record executes on at least two independent hosts and their disagreement is rated, never trusted; integrity-assured, not confidentiality-assured (open question 9(c) resolved; new 2026-10-07)"),
     # Record layer — the topology
-    Invariant("REC-six-holders", "record", "held six ways",
-              "implementation", "record tests: each transactor, the operator, and both witnesses keep records beside the chain (was REC-four-holders; recounted 2026-08-27)"),
+    Invariant("REC-six-holders", "record", "held by six parties",
+              "implementation", "record tests: each of the two prosumers, the operator, the orchestrator, and both witnesses keep records beside the chain (was REC-four-holders; recounted 2026-08-27; orchestrator added and anchor retracked 2026-09-30)"),
     Invariant("REC-public-chain", "record", "one public chain distributed across the substrate",
               "implementation", "record tests: single public chain on substrate serving non-parties (reverses old 9.3)"),
     Invariant("REC-truth-not-currency", "record", "never a currency unit",
               "implementation", "federation tests: what crosses record communities is reputation and history only"),
     Invariant("REC-witness-minimum", "record", "label itself unfederated",
               "implementation", "deployment tests: an operator platform with fewer than two independent witnesses forces the unfederated label (was 8.3; reworded 2026-08-25)"),
-    Invariant("REC-witness-work", "record", "compensated compute/record service provided by prosumers",
-              "implementation", "substrate tests: record-keeping and witnessing assigned as compensated substrate work (reworded 2026-08-27)"),
+    Invariant("REC-witness-work", "record", "compensating the prosumers who keep the record",
+              "implementation", "substrate tests: record-keeping and witnessing assigned as compensated substrate work (reworded 2026-08-27; anchor retracked to the frontend market wording 2026-09-17)"),
+    Invariant("REC-witness-draw", "record", "assigned by a draw seeded from the public chain",
+              "implementation", "record tests: witness assignment by a draw seeded from a public-chain block hash, verifiable by anyone; the substrate market pays the witness, never the operator observed (lineage REC-witness-work; new 2026-10-07)"),
     # Covenant layer
-    Invariant("COV-adjudicators", "covenant", "rated on their conduct by both prosumers",
-              "implementation", "covenant tests: adjudication conduct ratable by both parties (was 7.2-adjudicator-rated)"),
+    Invariant("COV-adjudicators", "covenant", "the parties to it rate the adjudicator",
+              "implementation", "covenant tests: adjudication conduct ratable by the parties to the adjudication - the operator on a platform, the witnesses across platforms (was 7.2-adjudicator-rated; anchor retracked 2026-09-30)"),
     Invariant("COV-operators-adjudicate", "covenant", "platform operators adjudicate between their prosumers",
               "implementation", "dispute tests: adjudication of apparent covenant breaches performed by platform operators (new 2026-08-25)"),
     Invariant("COV-witness-adjudication", "covenant", "adjudicated at the witness layer",
               "implementation", "dispute tests: cross-platform disputes adjudicated by the exchange's witnesses (new 2026-08-25)"),
+    Invariant("COV-operator-dispute-witnesses", "covenant", "no operator adjudicates a dispute to which it is a party",
+              "instrument", "P1-001 §10.9 routes a prosumer's dispute with its own operator to that platform's standing witnesses; dispute tests: a platform's routing never seats an operator on its own case (new 2026-09-22; lineage COV-operators-adjudicate, COV-witness-adjudication)"),
     # Governance and E&I operational detail (delegates/recall, reopening decided
     # matters, operator economic management, the hybrid definition) moved to the
     # bylaws and companion-article level on 2026-08-27; GOV-delegates, GOV-reopen,
     # EI-operator-economy and EI-hybrid are retired from this registry.
+    # Governance layer — membership and the franchise, returned to the document
+    # on 2026-09-22 because a vote resting on an instrument the architecture can
+    # be read to forbid is a paper check (amendment of 2026-09-22, §1).
+    Invariant("GOV-prosumer-membership", "governance", "by participating as a prosumer on a federated platform",
+              "instrument", "P1-001 §§3.3, 3.8: a prosumer of a federated platform may take up membership of the stewardship organization on the terms its bylaws provide (new 2026-09-22)"),
     # The lines that cannot be crossed
     Invariant("L1", "lines", "always summing to zero",
               "implementation", "economy tests: each exchange moves two balances netting to zero (was 7.1-zero-sum)"),
@@ -139,7 +150,7 @@ REGISTRY = [
     Invariant("L9", "lines", "set by the operator and never derived from reputation",
               "implementation", "boundary tests: one uniform limit per operator community, set by that operator; never per-member, never derived from reputation (was 9.5; operator-set 2026-08-25)"),
     Invariant("L10", "lines", "published to the governance layer",
-              "instrument", "escrow switch to hybrid or full mutual credit gated by operator capacity, prosumer-network notice, and published local authorizations to provide mutual credit services, or a published finding that none is required (was 8.7; regated 2026-08-25; review->authorization 2026-08-31; null case 2026-08-31)"),
+              "instrument", "escrow switch to hybrid or full mutual credit gated by operator capacity, prosumer-network notice, and published local authorizations to provide mutual credit services, or a published finding that none is required; a switch to full mutual credit further ratified by the deployment's prosumers (was 8.7; regated 2026-08-25; review->authorization 2026-08-31; null case 2026-08-31; ratification 2026-10-07)"),
     Invariant("L11", "lines", "whose removal could stop the network",
               "implementation", "deployment tests: participant-owned hardware; no hosting chokepoint (was 8.1)"),
     Invariant("L12", "lines", "survive any frontend",
@@ -164,8 +175,10 @@ TIER_TITLES = ["Protocol Tier", "Orchestrator Tier", "Frontend Tier"]
 LINE_COUNT = 12
 
 # Product names must not appear anywhere: the document is product-agnostic.
+# LBTAS is the covenant, not a product, and may be named wherever the Covenant
+# layer label would otherwise be undefined (principal's decision, 2026-09-30).
 PRODUCT_NAMES = ["Sohocloud", "SoHoLINK", "Cloudy", "Slack", "Discord", "Mycelium",
-                 "LBTAS", "Agrinet", "NTARI/OS", "GitHub", "Wix", "Fruitful"]
+                 "Agrinet", "NTARI/OS", "GitHub", "Wix", "Fruitful"]
 
 # Concepts the 2026-08-24 triage retired or reversed; their anchor phrases
 # must NOT reappear in the document.

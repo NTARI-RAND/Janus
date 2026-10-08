@@ -2,23 +2,29 @@
 
 ## Introduction
 
-Janus Facing Architecture — named for the Roman god who looks in two directions at once, just as every economic participant faces demands for both production and consumption — allows communities to address the economic reality of prosumership. Every member of an economy is not just a consumer, but a prosumer (Toffler, 1980), simultaneously producing something of value even if all they have to offer is time. It also provides an option to transform the issuance model from exogenous, chartal money (issued by an authority outside the community) to endogenous mutual credit (issued by members to one another as they transact).
+Every member of an economy is a **prosumer** — not only a consumer, but at the same time a producer of something of value, even if all they have to offer is time (Toffler, 1980). Nobody stands on only one side of a trade; the two faces are the same person.
+
+Janus Facing Architecture is named for the Roman god who looks in two directions at once, because that is what every prosumer does: each faces demands for both production and consumption, at the same time. It allows communities to address the economic reality of prosumership, and provides an option to transform the issuance model from exogenous, chartal money — issued by an authority outside the community (Knapp, 1924) — to endogenous mutual credit, issued by members to one another as they transact (Moore, 1988; Greco, 2009).
 
 The name's second face is political. Acemoglu and Robinson (2019) show that liberty survives only inside a narrow corridor where a capable state — the Leviathan — is matched by a society equally capable of checking it. Outside the corridor the Leviathan takes its other forms: absent, and coordination fails; despotic, and the coordinator dominates the coordinated; paper, and the checks exist in writing but not in effect. Staying inside the corridor demands what they call the Red Queen effect: state and society running together, each growing capacity because the other does. Every economic platform is a Leviathan in miniature — it coordinates, enforces and records — and today's dominant platforms are despotic by construction, evolving at network speed while the institutions meant to check them move at the speed of meetings.
 
-NTARI's research locates this failure in infrastructure itself. Deliberative systems are material culture: a platform's architecture materializes a theory of who may know and who may decide, and the prevailing broadcast architectures treat participants as passive recipients (NTARI, 2025b). The resulting velocity gap is structural — information moves at network speeds while democratic synthesis stays locked to electoral cycles synched by a postal clock (NTARI, 2025a). JFA is built to close that gap from inside: the community that coordinates is the community that checks, the two capacities exchanged continuously in the same software at the same speed, disciplined layer by layer by the cost of leaving. It is a shackled Leviathan in code.
+NTARI's research locates this failure in infrastructure itself. Deliberative systems are material culture: a platform's architecture materializes a theory of who may know and who may decide, and the prevailing broadcast architectures treat participants as passive recipients (NTARI, 2025b). The resulting velocity gap is structural — information moves at network speeds while democratic synthesis stays locked to electoral cycles synched by a postal clock (NTARI, 2025a). JFA is built to close that gap from inside, disciplined layer by layer by the cost of leaving. It is a shackled Leviathan in code.
 
 The Janus Facing Architecture (JFA) is organized into five functional layers — Substrate, Record, Covenant, Governance, and Economy & Information (E&I) — each implemented in three tiers: the frontend — for prosumer collaboration; the orchestrator — a backend providing overlapping coordination across geographic communities; and the underlying protocol — the pattern for securely handling data across tiers.
 
-JFA software is designed for release and management in a copyleft environment, generally the GNU Affero General Public License, allowing new frontends, federations, protocols and architectures to evolve in the global market, forming a free software commons. 
+JFA software is designed for release and management in a copyleft environment, generally the GNU Affero General Public License, version 3 or later (AGPL-3.0-or-later), allowing new frontends, federations, protocols and architectures to evolve in the global market, forming a free software commons. 
 
 This is the official document, stewarded by Network Theory Applied Research Institute, Inc. Prior instruments are preserved in [Historical Docs](Historical%20Docs/); concepts carried from them are recorded in the [concept triage](jfa-concept-triage-2026-08-24.md); what remains unresolved is named in [OPEN-QUESTIONS.md](OPEN-QUESTIONS.md).
+
+## Why This Matters
+
+Every system that coordinates people exercises power over them, whether it means to or not. That is not a defect; coordination requires it. But power stays healthy only when something checks it — not a check on paper, but real people with real stake, close enough to act. Most platforms now move at the speed of the network while everything built to hold them accountable moves at the speed of meetings, and a check that arrives late is not a check at all. JFA's answer is to stop treating coordination and accountability as two systems: same software, same people, same speed.
 
 ## Principles
 
 **Shared Responsibility.** The community that coordinates the economy is the same community that checks the coordination. The two functions are exchanged continuously — never split into rulers and ruled.
 
-**Institutional Discipline.** Each layer is disciplined by the cost of leaving it: where leaving is cheap, competition disciplines; where leaving is dear, members get a vote; where leaving is impossible, decisions stay open to challenge.
+**Institutional Discipline.** Each layer is disciplined by the cost of leaving it — what a member forfeits by walking out, and what a community forfeits by casting someone out. Where leaving is cheap, competition disciplines: the Substrate and Economy & Information layers. Where leaving is dear, members get a vote: the Covenant and Governance layers. Where leaving is catastrophic, decisions stay open to challenge: the Record layer. Each layer names its own cost below, because that cost is what decides how a fight there gets settled.
 
 **Lean, auditable code.** Protocol software stays small, depends on nothing but its language's standard library, and is auditable whole.
 
@@ -26,11 +32,15 @@ This is the official document, stewarded by Network Theory Applied Research Inst
 
 This is the hardware where everything happens, owned by prosumers of CPUs, GPUs, printers, storage and sensors.
 
+Exit here is cheap, and a carrier's refusal costs a prosumer nothing but a connection. An orchestrator that refuses to carry your capacity has not taken your hardware, your balances or your history, and another orchestrator is one published offer away. Quarrels at this layer are therefore not adjudicated: a carry that goes unattested inside its commitment window simply reverts, nobody rules on it, and a carrier that refuses or fails too freely is undercut rather than appealed to.
+
 ### Protocol Tier
 
 Exchanges instructions and orders across a distributed compute/storage market operated on consumer grade computers hosted in homes, offices and storage, as well as repurposed industrial equipment.
 
 Nodes join that market over encrypted overlays and outbound polling, without requiring open inbound ports or a static address; the connection as a residential provider ships it is enough. Line 11 depends on this: a substrate that ran only where a provider permits inbound service would carry a chokepoint at every provider.
+
+Substrate work is integrity-assured, not confidentiality-assured: a host can read what its node computes. Work whose result settles a spend or enters the record runs on at least two independent hosts, and their disagreement is rated, never trusted.
 
 ### Orchestrator Tier
 
@@ -38,19 +48,21 @@ Federated prosumer compute power creating more options across geography. Orchest
 
 ### Frontend Tier
 
-E&I interface for prosuming compute/storage.
+Economy & Information interface for prosuming compute/storage.
 
 ## Record Layer
 
-A compensated function of the substrate, recording and serving dialog between E&I and Covenant layers for the public.
+A compensated function of the substrate, recording and serving dialog between Economy & Information and Covenant layers for the public.
 
-The record of what happened is held six ways. Each party to a transaction keeps a record of their own; the operator keeps its own; two witnesses keep their own; and the hashes are committed to one public chain, distributed across the substrate — the record for everyone who was neither transactor, witness, nor operator. The chain is append-only: harm is forgiven by annotation, never by erasing. A platform must have at least two independent witnesses; with fewer, a deployment must label itself unfederated. 
+The record of what happened is held by six parties: the two prosumers to the exchange, the operator, the orchestrator, and two witnesses each keep a record of their own. The hashes are also committed to one public chain, distributed across the substrate — the record for everyone who holds none of their own. The commitments of every exchange carried by an orchestrator are copied to the chain and stored on substrate funded by the stewardship organization of the Governance layer, so the record that binds communities to one another is paid for by none of them. The chain is append-only: harm is forgiven by annotation, never by erasing. A platform must have at least two independent witnesses; with fewer, a deployment must label itself unfederated. Witnesses are assigned by a draw seeded from the public chain, which anyone can verify, and are paid by the substrate market, never by the operator they observe.
 
-A cross-community exchange remains two sovereign spends. The citation that settles it carries a third: the orchestrator's transport fee, escrowed with the trade at initiation and released by that same citation. Release is joint and all-or-nothing — if delivery is not attested within the offer's commitment window, all three spends revert — and the orchestrator's own attestation does not count toward the threshold that releases its own fee. The fee settles in the home ledger of the prosumers whose capacity was carried; it does not cross a community boundary. The credit it earns is held the same six ways, cited by key.
+Nobody can be deleted from the record, and leaving it is catastrophic. What was committed is never erased, but no single copy is the record, and each copy lasts only as long as it is kept: the orchestrator's with the last paid carry, the witnesses' while their storage is paid, the prosumers' and operator's own until they stop keeping them, and the chain's for as long as its storage is funded. The record survives in whichever copies remain; the chain is stored by the substrate rather than by the operator, so it can outlive the operator, the frontend and the quarrel, and what it carries past every holder is the fact of commitment, not the content. Because nothing can be deleted from the record, no finding here is ever final: a disputed entry is answered by annotation, and the annotation is as permanent as the entry it answers.
+
+A cross-community exchange remains two sovereign spends. The citation that settles it carries the orchestrator's transport fee as well, escrowed with the trade at initiation and released by that same citation. Release is joint and all-or-nothing — if delivery is not attested within the offer's commitment window, every spend reverts — and the orchestrator's own attestation does not count toward the threshold that releases its own fee. The fee is split between the home ledgers of the two prosumers whose trade was carried, each paying its share in its own unit; nothing crosses a community boundary. The credit it earns is held by the same six parties, cited by key. Delivery is attested by the witnesses alone; the operator keeps its record of a carry and never attests to one.
 
 ### Protocol Tier
 
-Captures, categorizes and hashes each transmission within the stack in order to establish reputation through the covenant layer and establishing the basis of an exchange medium through E&I.
+Captures, categorizes and hashes each transmission within the stack in order to establish reputation through the covenant layer and establishing the basis of an exchange medium through Economy & Information.
 
 ### Orchestrator Tier
 
@@ -58,11 +70,15 @@ Federates records across geography enabling shared reputation and exchange. What
 
 ### Frontend Tier
 
-Compensated compute/record service provided by prosumers on the substrate layer E&I.
+The buying and selling of record storage across the substrate, compensating the prosumers who keep the record.
 
 ## Covenant Layer
 
 A social contract enforced in code, informing flexible expectations for prosumer interactions.
+
+Exit here is dear. A prosumer barred from a platform keeps the record of every rating they earned there — six parties hold it — but the standing it carries does not follow them by default: on the next platform, the count of exchanges at each rating level is rebuilt one witnessed exchange at a time. That price is why a bar rests on adjudicated evidence rather than an operator's word. When apparent breaches of the covenant occur, platform operators adjudicate between their prosumers; disputes that cross platforms, and disputes between a prosumer and the operator of its own platform, are adjudicated at the witness layer — no operator adjudicates a dispute to which it is a party. Wherever adjudication occurs, the parties to it rate the adjudicator — the operator between its own prosumers, the witnesses otherwise — so the referees stand inside the reputation system they enforce.
+
+Because exit is dear, members vote here: the Covenant federation votes on conceptual and programmatic changes to the covenant (the Leveson-Based Trade Assessment Scale, LBTAS), its API and its orchestration, and commissions formal studies of the chosen covenant's effects on its users.
 
 ### Protocol Tier
 
@@ -70,15 +86,17 @@ A simple assessment, written in executable code for prosumers to rate interactio
 
 ### Orchestrator Tier
 
-An API serving compliant assessments across the E&I markets of the stack from substrate prosumers. When apparent breaches of the covenant occur, platform operators adjudicate between their prosumers; disputes that cross platforms are adjudicated at the witness layer. Adjudicators are rated on their conduct by both prosumers/operators involved.
+An API serving compliant assessments across the Economy & Information markets of the stack from substrate prosumers.
 
 ### Frontend Tier
 
-The E&I interface where the API is served.
+The Economy & Information interface where the API is served.
 
 ## Governance Layer
 
 This is where and how humans assemble to collaboratively act on the stack.
+
+Exit here is dear, and this is the only layer where expulsion reaches the software itself: a member expelled from the Institute loses, for a bounded term, the vote that shapes what everyone else runs. So expulsion is never an operator's decision — it is referred to the Governance federation and decided by its members' vote under the bylaws, on the record.
 
 ### Protocol Tier
 
@@ -86,7 +104,7 @@ Nonprofit, copyleft software stewardship organization.
 
 ### Orchestrator Tier
 
-Membership in the Network Theory Applied Research Institute, obtained by operating a federated instance of JFA software.   
+Membership in the Network Theory Applied Research Institute, obtained by operating a federated instance of JFA software or by participating as a prosumer on a federated platform.   
 
 ### Frontend Tier
 
@@ -94,25 +112,27 @@ The synchronous/asynchronous coordination of members governed by the organizatio
 
 ## Economy & Information Layer
 
-The E&I layer is hosted on substrate, syndicated with the record layer, and facilitates covenant compliance.
+The Economy & Information layer is hosted on substrate, syndicated with the record layer, and facilitates covenant compliance.
+
+Exit here is cheap by construction. An operator may bar a prosumer from its platform but not from what they built there: positions and history survive any frontend, so the barred leave with their record intact and their balances still owed. A bar is a loss of market, not a loss of standing — and an operator whose terms or credit limit drive prosumers out loses the trade rather than winning the argument.
 
 ### Protocol Tier
 
-Each economic or information platform has a protocol designed for the exchange taking place (i.e. agriculture, a game or research citations). 
+Each economic or information platform has a protocol designed for the exchange taking place (i.e. agriculture, a game or research citations). Each assumes that any substrate host can read what it computes.
 
 ### Orchestrator Tier
 
-E&I must run on revokable hardware obtained and recorded by the substrate layer. A platform needs no orchestrator of its own: it selects one from the substrate market and pays transport out of the trade
+Economy & Information must run on revokable hardware obtained and recorded by the substrate layer. A platform needs no orchestrator of its own: it selects one from the substrate market and pays transport out of the trade
 
 ### Frontend Tier
 
-Frontend designs for E&I platforms must be customizeable by the user. 
+Frontend designs for Economy & Information platforms must be customizeable by the user. 
 
 ## The Lines That Cannot Be Crossed
 
 A build that crosses any of these is not a smaller JFA; it is different software wearing the name.
 
-1. Money is created at the moment of exchange — one balance down, one up, always summing to zero.
+1. Every credit is an IOU, created at the moment two members trade — one balance down, one up, always summing to zero. That is the only way money comes into being: nothing is minted, nothing is issued from outside, and nothing accrues as interest.
 2. Credit is earned, never bought, and never redeemable for fiat.
 3. Each community's currency is sovereign — no shared unit, no conversion between communities.
 4. Value stays home; only truth crosses.
@@ -121,13 +141,19 @@ A build that crosses any of these is not a smaller JFA; it is different software
 7. No narratives, no identities in the shared record — hashes, types, timestamps and references only.
 8. Reputation is never one number — what others see is the count of exchanges at each rating level.
 9. Reputation decides whether a member trades on trust; a community-wide limit, set by the operator and never derived from reputation, decides how much.
-10. A deployment begins in escrow — collateralized, no negative balances, no counterparty credit extended — and switches to a hybrid or full mutual credit system only after the operator builds capacity, the prosumer network is notified, and the local authorizations to provide mutual credit services are published to the governance layer — or, where the jurisdiction requires none, a finding to that effect is published there instead.
+10. A deployment begins in escrow — collateralized, no negative balances, no counterparty credit extended — and switches to a hybrid or full mutual credit system only after the operator builds capacity, the prosumer network is notified, and the local authorizations to provide mutual credit services are published to the governance layer — or, where the jurisdiction requires none, a finding to that effect is published there instead — and a switch to full mutual credit is ratified by the deployment's prosumers.
 11. No single host, account, or vendor whose removal could stop the network.
 12. A member's positions and history survive any frontend; a community's records survive any operator.
 
 ## References
 
 Acemoglu, D., & Robinson, J. A. (2019). *The Narrow Corridor: States, Societies, and the Fate of Liberty*. Penguin Press.
+
+Greco, T. H. (2009). *The End of Money and the Future of Civilization*. Chelsea Green Publishing.
+
+Knapp, G. F. (1924). *The State Theory of Money*. Macmillan. (Original work published 1905)
+
+Moore, B. J. (1988). *Horizontalists and Verticalists: The Macroeconomics of Credit Money*. Cambridge University Press.
 
 Network Theory Applied Research Institute. (2025a, October). *Addressing democratic information velocity* (P1-002). https://www.ntari.org/post/ntari-whitepaper-addressing-democratic-information-velocity
 
@@ -139,4 +165,4 @@ Toffler, A. (1980). *The Third Wave*. William Morrow.
 
 *Network Theory Applied Research Institute, Inc. — 501(c)(3) — EIN 92-3047136 — info@ntari.org*
 
-*Software: AGPL-3.0 · Specification: CC BY-SA 4.0*
+*Software: AGPL-3.0-or-later · Specification: CC BY-SA 4.0*
