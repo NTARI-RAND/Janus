@@ -74,7 +74,7 @@ The buying and selling of record storage across the substrate, compensating the 
 
 A social contract enforced in code, informing flexible expectations for prosumer interactions.
 
-Exit here is dear. Being cast out of the covenant costs a prosumer the one thing that cannot be rebuilt quickly — the count of exchanges at each rating level, earned one witnessed exchange at a time. That price is why expulsion is adjudicated rather than assumed. When apparent breaches of the covenant occur, platform operators adjudicate between their prosumers; disputes that cross platforms are adjudicated at the witness layer. Adjudicators are rated on their conduct by both prosumers/operators involved — the referees stand inside the reputation system they enforce.
+Exit here is dear. Being cast out of the covenant costs a prosumer the one thing that cannot be rebuilt quickly — the count of exchanges at each rating level, earned one witnessed exchange at a time. That price is why expulsion is adjudicated rather than assumed. When apparent breaches of the covenant occur, platform operators adjudicate between their prosumers; disputes that cross platforms, and disputes between a prosumer and the operator of its own platform, are adjudicated at the witness layer — no operator adjudicates a dispute to which it is a party. Adjudicators are rated on their conduct by both prosumers/operators involved — the referees stand inside the reputation system they enforce.
 
 ### Protocol Tier
 
@@ -100,7 +100,7 @@ Nonprofit, copyleft software stewardship organization.
 
 ### Orchestrator Tier
 
-Membership in the Network Theory Applied Research Institute, obtained by operating a federated instance of JFA software.   
+Membership in the Network Theory Applied Research Institute, obtained by operating a federated instance of JFA software, or by participating as a prosumer on a federated platform as the organization's bylaws provide.   
 
 ### Frontend Tier
 
