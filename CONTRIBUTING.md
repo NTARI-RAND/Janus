@@ -42,6 +42,8 @@ git push --force-with-lease
 ```
 python jfa-conformance-suite.py                 # check the document
 python jfa-conformance-suite.py --list          # print the invariant registry
+python jfa-conformance-suite.py --bindings ../Cloudy   # report which delegated
+                                                       # invariants a repo binds
 ```
 
 Exit code 0 when every executed check passes, 1 otherwise. It runs on every

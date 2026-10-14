@@ -47,6 +47,27 @@ Usage:
   python jfa-conformance-suite.py --list          # print the registry
   python jfa-conformance-suite.py --project PATH  # check a project repo's
                                                   # open-questions deliverable
+  python jfa-conformance-suite.py --bindings REPO [REPO ...]
+                                                  # also report which delegated
+                                                  # invariants those repos bind
+
+What --bindings does, and what it does not:
+  Given one or more implementation repositories (local paths), it scans
+  their test files for test functions named TestInvariant_<ID>_<Name>,
+  with any "-" in the ID written "_", and marks each registered
+  implementation invariant those names cite as BOUND. That is the binding
+  P1-001 §9.14(b) defines: "complete when a repository ships tests citing
+  the identifier." It does NOT run those tests: whether a bound test
+  passes is reported by that repository's own CI, never here, so the
+  label says "test present" and nothing more (§9.15). A citation of an
+  unregistered ID fails the run, since a misspelled ID would otherwise
+  bind nothing silently. A test citing an instrument- or document-bound
+  ID is listed but binds nothing: instruments bind through their venue
+  tooling (§9.14(c)). Recognized test files: Go *_test.go
+  ("func TestInvariant_..."), and JavaScript/TypeScript *.test.* and
+  *.spec.* ("test(" / "it(" / "describe(" with a "TestInvariant_..."
+  title). Standard library only; offline; no toolchain for the scanned
+  language is needed.
 
 Exit code 0 when every executed check passes; 1 otherwise.
 
@@ -396,6 +417,91 @@ def check_project(path):
 
 
 # --------------------------------------------------------------------------
+# Bindings: which delegated invariants implementation repos cite in tests
+# --------------------------------------------------------------------------
+
+Citation = namedtuple("Citation", "repo path test inv_id")
+
+SKIP_DIRS = {".git", "vendor", "node_modules", "testdata", "dist", "build"}
+
+GO_TEST = re.compile(r"^func\s+(TestInvariant_\w+)\s*\(\s*\w+\s+\*testing\.T\s*\)", re.M)
+JS_TEST = re.compile(r"\b(?:test|it|describe)\s*\(\s*[\'\"`](TestInvariant_\w+)")
+
+
+def _is_test_file(name):
+    if name.endswith("_test.go"):
+        return GO_TEST
+    if re.search(r"\.(test|spec)\.(js|jsx|ts|tsx|mjs|cjs)$", name):
+        return JS_TEST
+    return None
+
+
+def resolve_test_id(test_name):
+    """Map TestInvariant_<ID>_<Name> to a registered ID by the longest
+    registered ID (with "-" written "_") that the name starts with and that
+    is followed by "_" or the end. Returns None when nothing matches."""
+    rest = test_name[len("TestInvariant_"):]
+    best = None
+    for inv in REGISTRY:
+        key = inv.id.replace("-", "_")
+        if rest == key or rest.startswith(key + "_"):
+            if best is None or len(key) > len(best.id.replace("-", "_")):
+                best = inv
+    return best.id if best else None
+
+
+def scan_bindings(repo):
+    """Return (citations, unknown) for one repository path: every
+    TestInvariant_ test function found in its test files, resolved to a
+    registry ID, and the test names that cite no registered ID."""
+    citations, unknown = [], []
+    label = os.path.basename(os.path.abspath(repo))
+    for root, dirs, files in os.walk(repo):
+        dirs[:] = sorted(d for d in dirs if d not in SKIP_DIRS)
+        for name in sorted(files):
+            pattern = _is_test_file(name)
+            if pattern is None:
+                continue
+            path = os.path.join(root, name)
+            rel = os.path.relpath(path, repo).replace(os.sep, "/")
+            text = io.open(path, encoding="utf-8", errors="replace").read()
+            for test in pattern.findall(text):
+                inv_id = resolve_test_id(test)
+                if inv_id is None:
+                    unknown.append(Citation(label, rel, test, None))
+                else:
+                    citations.append(Citation(label, rel, test, inv_id))
+    return citations, unknown
+
+
+def check_bindings(repos):
+    """Scan every repo; return (results, citations_by_id, informational)."""
+    results, by_id, info = [], {}, []
+    binding_of = dict((inv.id, inv.binding) for inv in REGISTRY)
+    for repo in repos:
+        if not os.path.isdir(repo):
+            results.append(Result("B1 bindings repo readable: %s" % repo, False,
+                                  "not a directory"))
+            continue
+        citations, unknown = scan_bindings(repo)
+        results.append(Result("B1 bindings repo readable: %s" % repo, True,
+                              "%d TestInvariant_ tests found" % (len(citations) + len(unknown))))
+        if unknown:
+            results.append(Result(
+                "B2 every TestInvariant_ test cites a registered ID: %s" % repo, False,
+                "; ".join("%s (%s)" % (c.test, c.path) for c in unknown)))
+        else:
+            results.append(Result(
+                "B2 every TestInvariant_ test cites a registered ID: %s" % repo, True))
+        for c in citations:
+            if binding_of[c.inv_id] == "implementation":
+                by_id.setdefault(c.inv_id, []).append(c)
+            else:
+                info.append(c)
+    return results, by_id, info
+
+
+# --------------------------------------------------------------------------
 # Reporting
 # --------------------------------------------------------------------------
 
@@ -411,18 +517,52 @@ def print_results(title, results):
     print()
 
 
-def print_delegation():
+def print_delegation(bound=None, info=None):
+    """List delegated invariants. With bound (from --bindings), mark those a
+    scanned repo cites in a test as BOUND — test present, not executed here."""
     delegated = [inv for inv in REGISTRY if inv.binding != "document"]
-    print("Delegated invariants (labeled stand-ins; unbound until a repo or")
-    print("instrument ships checks citing these IDs)")
+    if bound is None:
+        print("Delegated invariants (labeled stand-ins; unbound until a repo or")
+        print("instrument ships checks citing these IDs)")
+        print("-" * 60)
+        for inv in delegated:
+            print("[DELEGATED:%s] %-22s %s" % (inv.binding, inv.id, inv.note))
+        print()
+        print("%d of %d registered invariants are delegated; this suite binds the"
+              % (len(delegated), len(REGISTRY)))
+        print("document layer only. A conformant repo cites the IDs above in its")
+        print("own test suite; until then, its conformance is self-attested.")
+        print()
+        return
+
+    print("Delegated invariants and their bindings (BOUND = a scanned repo ships")
+    print("a test citing the ID; this suite does not run it -- pass/fail is that")
+    print("repo's own CI. Everything else stays self-attested.)")
     print("-" * 60)
     for inv in delegated:
-        print("[DELEGATED:%s] %-22s %s" % (inv.binding, inv.id, inv.note))
+        cites = bound.get(inv.id, [])
+        if cites:
+            where = ", ".join("%s/%s %s" % (c.repo, c.path, c.test) for c in cites)
+            print("[BOUND:%s] %-22s %s" % (inv.binding, inv.id, where))
+        else:
+            print("[DELEGATED:%s] %-22s %s" % (inv.binding, inv.id, inv.note))
     print()
-    print("%d of %d registered invariants are delegated; this suite binds the"
-          % (len(delegated), len(REGISTRY)))
-    print("document layer only. A conformant repo cites the IDs above in its")
-    print("own test suite; until then, its conformance is self-attested.")
+    for c in info or []:
+        print("[NOTE] %s/%s %s cites %s, which binds through an instrument or the"
+              % (c.repo, c.path, c.test, c.inv_id))
+        print("       document, not a test; listed, not counted")
+    if info:
+        print()
+    impl = [inv for inv in delegated if inv.binding == "implementation"]
+    inst = [inv for inv in delegated if inv.binding == "instrument"]
+    n_impl = sum(1 for inv in impl if inv.id in bound)
+    print("%d of %d implementation-bound invariants are bound by tests (test"
+          % (n_impl, len(impl)))
+    print("present; results come from each repo's CI). %d of %d instrument-bound"
+          % (0, len(inst)))
+    print("invariants are bound here: instruments bind through their venue tooling.")
+    print("%d of %d delegated invariants remain self-attested."
+          % (len(delegated) - n_impl, len(delegated)))
     print()
 
 
@@ -433,6 +573,9 @@ def main():
     ap.add_argument("--project", help="path to a project repo to check for the "
                                       "open-questions deliverable")
     ap.add_argument("--list", action="store_true", help="print the invariant registry")
+    ap.add_argument("--bindings", nargs="+", metavar="REPO",
+                    help="implementation repo path(s) to scan for TestInvariant_<ID> "
+                         "tests; reports which delegated invariants they bind")
     args = ap.parse_args()
 
     if args.list:
@@ -443,6 +586,10 @@ def main():
         return 0
 
     all_ok = True
+
+    if args.project and args.bindings:
+        print("--bindings reports against the document; run it without --project")
+        return 1
 
     if args.project:
         results = check_project(args.project)
@@ -468,8 +615,14 @@ def main():
             check_own_open_questions(doc, args.doc),
         ]
         print_results("DOCUMENT CHECKS: %s" % os.path.basename(args.doc), results)
-        print_delegation()
         all_ok = all(r.ok for r in results)
+        if args.bindings:
+            b_results, bound, info = check_bindings(args.bindings)
+            print_results("BINDINGS CHECKS", b_results)
+            print_delegation(bound, info)
+            all_ok = all_ok and all(r.ok for r in b_results)
+        else:
+            print_delegation()
 
     print("RESULT: %s" % ("all executed checks PASS" if all_ok else "FAILURES present"))
     return 0 if all_ok else 1

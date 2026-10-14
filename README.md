@@ -73,7 +73,18 @@ python jfa-conformance-suite.py                 # check the document
 python jfa-conformance-suite.py --list          # print the invariant registry
 python jfa-conformance-suite.py --doc PATH      # check another copy
 python jfa-conformance-suite.py --project PATH  # check a repo's open-questions deliverable
+python jfa-conformance-suite.py --bindings ../Cloudy [../other-repo ...]
+                                                # also report which delegated
+                                                # invariants those repos bind
 ```
+
+`--bindings` scans implementation repositories you have cloned beside this one
+for test functions named `TestInvariant_<ID>_<Name>` (with any `-` in the ID
+written `_`) and marks each implementation invariant they cite as **BOUND** —
+the binding the bylaws define in P1-001 §9.14(b). It reports that a citing test
+*exists*; whether it passes is that repository's own CI, so the suite never
+reports a delegated invariant as passing (§9.15). A test citing an unregistered
+ID fails the run.
 
 Exit code 0 when every executed check passes, 1 otherwise. Run it after any
 edit to the official document.
