@@ -8,7 +8,7 @@ Janus Facing Architecture is named for the Roman god who looks in two directions
 
 The name's second face is political. Acemoglu and Robinson (2019) show that liberty survives only inside a narrow corridor where a capable state — the Leviathan — is matched by a society equally capable of checking it. Outside the corridor the Leviathan takes its other forms: absent, and coordination fails; despotic, and the coordinator dominates the coordinated; paper, and the checks exist in writing but not in effect. Staying inside the corridor demands what they call the Red Queen effect: state and society running together, each growing capacity because the other does. Every economic platform is a Leviathan in miniature — it coordinates, enforces and records — and today's dominant platforms are despotic by construction, evolving at network speed while the institutions meant to check them move at the speed of meetings.
 
-NTARI's research locates this failure in infrastructure itself. Deliberative systems are material culture: a platform's architecture materializes a theory of who may know and who may decide, and the prevailing broadcast architectures treat participants as passive recipients (NTARI, 2025b). The resulting velocity gap is structural — information moves at network speeds while democratic synthesis stays locked to electoral cycles synched by a postal clock (NTARI, 2025a). JFA is built to close that gap from inside, disciplined layer by layer by the cost of leaving. It is a shackled Leviathan in code.
+NTARI's research locates this failure in infrastructure itself. Deliberative systems are material culture: a platform's architecture materializes a theory of who may know and who may decide, and the prevailing broadcast architectures treat participants as passive recipients (NTARI, 2026). The resulting velocity gap is structural — information moves at network speeds while democratic synthesis stays locked to electoral cycles synched by a postal clock (NTARI, 2025). JFA is built to close that gap from inside, disciplined layer by layer by the cost of leaving. It is a shackled Leviathan in code.
 
 The Janus Facing Architecture (JFA) is organized into five functional layers — Substrate, Record, Covenant, Governance, and Economy & Information (E&I) — each implemented in three tiers: the frontend — for prosumer collaboration; the orchestrator — a backend providing overlapping coordination across geographic communities; and the underlying protocol — the pattern for securely handling data across tiers.
 
@@ -155,9 +155,9 @@ Knapp, G. F. (1924). *The State Theory of Money*. Macmillan. (Original work publ
 
 Moore, B. J. (1988). *Horizontalists and Verticalists: The Macroeconomics of Credit Money*. Cambridge University Press.
 
-Network Theory Applied Research Institute. (2025a, October). *Addressing democratic information velocity* (P1-002). https://www.ntari.org/post/ntari-whitepaper-addressing-democratic-information-velocity
+Network Theory Applied Research Institute. (2025, October). *Addressing democratic information velocity* (P1-002). https://www.ntari.org/post/ntari-whitepaper-addressing-democratic-information-velocity
 
-Network Theory Applied Research Institute. (2025b, June). *The material culture of democratic deliberation*. https://www.ntari.org/post/the-material-culture-of-democratic-deliberation
+Network Theory Applied Research Institute. (2026, January). *The material culture of democratic deliberation*. https://www.ntari.org/post/the-material-culture-of-democratic-deliberation
 
 Toffler, A. (1980). *The Third Wave*. William Morrow.
 
