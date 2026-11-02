@@ -100,7 +100,7 @@ Exit here is dear, and this is the only layer where expulsion reaches the softwa
 
 ### Protocol Tier
 
-Nonprofit, copyleft software stewardship organization.
+JFA-compliant software is published under the GNU Affero General Public License, but copyleft licensing does not guarantee access. In addition to WCAG accessibility, NTARI publishes its work in English, Arabic, Chinese, French, Hindi, Portuguese, Spanish and Toki Pona (P2-002). Files are mirrored on multiple code-hosting platforms, in as many countries as possible, to defeat censorship (P2-003).
 
 ### Orchestrator Tier
 
