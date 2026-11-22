@@ -116,6 +116,23 @@ class BindingFixtureTests(unittest.TestCase):
                 self.assertEqual(result.returncode, 2)
                 self.assertIn("INCONCLUSIVE", result.stderr)
 
+    def test_package_lifecycle_must_surround_the_test_run(self):
+        events = (self.repo / "violating.json").read_text().splitlines()
+        start = next(i for i, line in enumerate(events)
+                     if json.loads(line)["Action"] == "start")
+        finish = next(i for i, line in enumerate(events)
+                      if json.loads(line)["Action"] == "fail" and not json.loads(line).get("Test"))
+        for name, report in (
+            ("missing-start", events[:start] + events[start + 1:]),
+            ("early-finish", events[:start + 1] + [events[finish]]
+             + events[start + 1:finish] + events[finish + 1:]),
+        ):
+            with self.subTest(name=name):
+                (self.repo / (name + ".json")).write_text("\n".join(report))
+                result = self.check_report(violating=name)
+                self.assertEqual(result.returncode, 2, result.stdout)
+                self.assertIn("INCONCLUSIVE", result.stderr)
+
 
 if __name__ == "__main__":
     unittest.main()
