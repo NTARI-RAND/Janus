@@ -2,8 +2,10 @@
 """Compare two recorded Go test runs for one delegated binding."""
 
 import argparse
+import ast
 import json
 from pathlib import Path
+import re
 import runpy
 import sys
 
@@ -22,6 +24,38 @@ def citation_for(repo, test):
                for inv in suite["REGISTRY"]):
         raise ValueError(f"{citation.inv_id} is not implementation-bound")
     return citation
+
+
+def package_for(repo, citation):
+    """Derive the cited package's import path without running Go."""
+    package_dir = (repo / citation.path).parent
+    module_dir = package_dir
+    while True:
+        go_mod = module_dir / "go.mod"
+        try:
+            module_text = go_mod.read_text(encoding="utf-8")
+            break
+        except FileNotFoundError:
+            if module_dir == repo:
+                raise ValueError(f"no go.mod for cited test in {citation.path}") from None
+            module_dir = module_dir.parent
+
+    for line in module_text.splitlines():
+        fields = line.partition("//")[0].split()
+        if fields[:1] != ["module"]:
+            continue
+        if len(fields) != 2:
+            break
+        module_path = fields[1]
+        if module_path.startswith('"'):
+            try:
+                module_path = ast.literal_eval(module_path)
+            except (SyntaxError, ValueError):
+                break
+        if re.fullmatch(r"[A-Za-z0-9._~/-]+", module_path):
+            return "/".join((module_path, *package_dir.relative_to(module_dir).parts))
+        break
+    raise ValueError(f"cannot read module path from {go_mod}")
 
 
 def read_outcome(path, test):
@@ -70,7 +104,9 @@ def main():
     args = parser.parse_args()
 
     try:
-        citation = citation_for(args.repo, args.test)
+        repo = args.repo.resolve()
+        citation = citation_for(repo, args.test)
+        expected_package = package_for(repo, citation)
     except (OSError, ValueError) as error:
         print(f"INCONCLUSIVE: {error}", file=sys.stderr)
         return 2
@@ -90,6 +126,10 @@ def main():
         return 2
     if runs[0][0] != runs[1][0]:
         print("INCONCLUSIVE: reports come from different packages", file=sys.stderr)
+        return 2
+    if runs[0][0] != expected_package:
+        print(f"INCONCLUSIVE: reports name {runs[0][0]}, expected {expected_package}",
+              file=sys.stderr)
         return 2
 
     distinguished = runs[0][1] == "pass" and runs[1][1] == "fail"
