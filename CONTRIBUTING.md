@@ -87,13 +87,15 @@ python3 check-binding-fixtures.py --repo /path/to/implementation \
 ```
 
 The command reports the citation separately from the two recorded outcomes.
+It checks both report package names against the cited test file's directory
+and the closest enclosing `go.mod` within the implementation checkout.
 It returns 0 for a passing valid fixture and a failing violating fixture,
 1 for a completed pair with other outcomes, or 2 for inconclusive evidence
-such as a skipped test, missing citation or incomplete report. The result
-describes one test and two supplied runs. Reviewers still interpret the
-failure and assess the implementation in its own repository. Both this
-command and the document checker read files only. The Go runs happen in the
-implementation checkout.
+such as a skipped test, missing citation, unknown or mismatched package, or
+incomplete report. The result describes one test and two supplied runs.
+Reviewers still interpret the failure and assess the implementation in its
+own repository. Both this command and the document checker read files only.
+The Go runs happen in the implementation checkout.
 
 Run the fixture-report regression tests with
 `python3 -m unittest -v test_binding_fixtures`. These tests use Go to generate
