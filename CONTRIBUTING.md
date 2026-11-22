@@ -63,6 +63,42 @@ That is a convenience, not a gate — hooks are not distributed with the
 repository, and `git push --no-verify` skips them. The pull request check is
 what actually holds.
 
+### Compare two fixture runs for a delegated test
+
+Choose one Go `TestInvariant_` function in an implementation checkout. Use a
+valid fixture and a synthetic fixture that violates the cited invariant.
+Run the same function in the same package and checkout for both fixtures,
+preferably with an existing fixture selector. For example, if the test reads
+the `FIXTURE` environment variable, run these commands from its package:
+
+```sh
+FIXTURE=/path/to/valid.fixture go test -json -count=1 -run '^TestInvariant_REC_public_chain_Example$' . > /tmp/jfa-valid.json
+FIXTURE=/path/to/violating.fixture go test -json -count=1 -run '^TestInvariant_REC_public_chain_Example$' . > /tmp/jfa-violating.json
+```
+
+The second Go command should fail on the invariant assertion. Check its
+output for the intended failure before using the comparison as evidence.
+From the Janus checkout, compare the recorded runs:
+
+```sh
+python3 check-binding-fixtures.py --repo /path/to/implementation \
+  --test TestInvariant_REC_public_chain_Example \
+  /tmp/jfa-valid.json /tmp/jfa-violating.json
+```
+
+The command reports the citation separately from the two recorded outcomes.
+It returns 0 for a passing valid fixture and a failing violating fixture,
+1 for a completed pair with other outcomes, or 2 for inconclusive evidence
+such as a skipped test, missing citation or incomplete report. The result
+describes one test and two supplied runs. Reviewers still interpret the
+failure and assess the implementation in its own repository. Both this
+command and the document checker read files only. The Go runs happen in the
+implementation checkout.
+
+Run the fixture-report regression tests with
+`python3 -m unittest -v test_binding_fixtures`. These tests use Go to generate
+reports from synthetic fixtures.
+
 ### What the suite constrains
 
 Edits to the document fail the suite if they:
