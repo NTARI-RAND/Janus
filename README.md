@@ -71,12 +71,18 @@ without the check failing. Standard library only, no dependencies.
 ```
 python jfa-conformance-suite.py                 # check the document
 python jfa-conformance-suite.py --list          # print the invariant registry
+python jfa-conformance-suite.py --explain REC-public-chain
 python jfa-conformance-suite.py --doc PATH      # check another copy
 python jfa-conformance-suite.py --project PATH  # check a repo's open-questions deliverable
 python jfa-conformance-suite.py --bindings ../Cloudy [../other-repo ...]
                                                 # also report which delegated
                                                 # invariants those repos bind
 ```
+
+Use `--explain ID` to look up one case-sensitive invariant ID. It prints the
+official document section, anchor phrase, enforcement category, and expected
+evidence from the registry. If the ID is unknown, the command exits with
+status 1. Use `--list` to see all registered IDs.
 
 `--bindings` scans implementation repositories you have cloned beside this one
 for test functions named `TestInvariant_<ID>_<Name>` (with any `-` in the ID
