@@ -27,8 +27,7 @@ def citation_for(repo, test):
 def read_outcome(path, test):
     """Require an isolated, completed run of the selected test and package."""
     packages = set()
-    test_actions = []
-    package_outcomes = []
+    lifecycle = []
     with path.open(encoding="utf-8") as report:
         for line in report:
             event = json.loads(line)
@@ -47,18 +46,19 @@ def read_outcome(path, test):
             if name and name.split("/", 1)[0] != test:
                 raise ValueError(f"unexpected test: {name}")
             if name == test and action in ("run", "pass", "fail", "skip"):
-                test_actions.append(action)
-            if not name and action in ("pass", "fail", "skip"):
-                package_outcomes.append(action)
+                lifecycle.append(("test", action))
+            if not name and action in ("start", "pass", "fail", "skip"):
+                lifecycle.append(("package", action))
 
     if len(packages) != 1:
         raise ValueError("expected exactly one package")
-    if test_actions not in (["run", "pass"], ["run", "fail"]):
-        raise ValueError(f"expected one completed, non-skipped run of {test}")
-    outcome = test_actions[-1]
-    if package_outcomes != [outcome]:
-        raise ValueError("package result is missing or differs from the test result")
-    return packages.pop(), outcome
+    for outcome in ("pass", "fail"):
+        if lifecycle == [
+            ("package", "start"), ("test", "run"),
+            ("test", outcome), ("package", outcome),
+        ]:
+            return packages.pop(), outcome
+    raise ValueError(f"expected one completed run of {test} between package start and matching result")
 
 
 def main():
