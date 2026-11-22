@@ -11,9 +11,9 @@ the old ID is noted for lineage. Which concepts carried, changed, or
 retired is recorded in jfa-concept-triage-2026-08-24.md.
 
 What it checks, executably, right now (the DOCUMENT checks):
-  * All nine sections are present, in order: Introduction, Principles,
-    the five layers (Substrate, Record, Covenant, Governance, Economy &
-    Information), The Lines That Cannot Be Crossed, References.
+  * Each of the nine required sections appears once, in order: Introduction,
+    Principles, the five layers (Substrate, Record, Covenant, Governance,
+    Economy & Information), The Lines That Cannot Be Crossed, References.
   * Every layer section carries the three tiers in order:
     Protocol, Orchestrator, Frontend.
   * The lines section carries exactly twelve numbered lines.
@@ -80,7 +80,7 @@ import io
 import os
 import re
 import sys
-from collections import namedtuple
+from collections import Counter, namedtuple
 
 # --------------------------------------------------------------------------
 # The invariant registry.
@@ -266,7 +266,11 @@ def check_sections(sections):
     problems = []
     expected = [normalize(title) for _, title in SECTION_KEYS]
     got = [normalize(s["title"]) for s in sections]
-    missing = [t for t in expected if t not in got]
+    counts = Counter(got)
+    duplicates = [t for t in expected if counts[t] > 1]
+    if duplicates:
+        problems.append("duplicate required sections: %s" % ", ".join(duplicates))
+    missing = [t for t in expected if counts[t] == 0]
     if missing:
         problems.append("missing sections: %s" % ", ".join(missing))
     else:

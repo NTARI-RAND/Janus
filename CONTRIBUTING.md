@@ -63,7 +63,8 @@ what actually holds.
 
 Edits to the document fail the suite if they:
 
-- drop or reorder the nine `##` sections. Additional `##` sections are fine.
+- drop, repeat or reorder the nine required `##` sections. Additional `##`
+  sections are fine.
 - add a `###` heading inside one of the five layer sections. Each must carry
   exactly Protocol Tier, Orchestrator Tier and Frontend Tier, in that order.
   Put new prose in the body of an existing tier.
