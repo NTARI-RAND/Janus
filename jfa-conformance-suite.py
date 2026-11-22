@@ -45,6 +45,7 @@ Usage:
   python jfa-conformance-suite.py                 # check the document
   python jfa-conformance-suite.py --doc PATH      # check another copy
   python jfa-conformance-suite.py --list          # print the registry
+  python jfa-conformance-suite.py --explain ID   # show one invariant
   python jfa-conformance-suite.py --project PATH  # check a project repo's
                                                   # open-questions deliverable
   python jfa-conformance-suite.py --bindings REPO [REPO ...]
@@ -69,7 +70,8 @@ What --bindings does, and what it does not:
   title). Standard library only; offline; no toolchain for the scanned
   language is needed.
 
-Exit code 0 when every executed check passes; 1 otherwise.
+Exit code 0 when every executed check passes or a registry query succeeds.
+Exit code 1 when a check fails or an invariant ID is unknown.
 
 Software: AGPL-3.0 · Specification it verifies: CC BY-SA 4.0.
 """
@@ -616,11 +618,28 @@ def main():
     ap.add_argument("--doc", default=os.path.join(here, "janus-facing-architecture.md"))
     ap.add_argument("--project", help="path to a project repo to check for the "
                                       "open-questions deliverable")
-    ap.add_argument("--list", action="store_true", help="print the invariant registry")
+    registry_view = ap.add_mutually_exclusive_group()
+    registry_view.add_argument("--list", action="store_true",
+                               help="print the invariant registry")
+    registry_view.add_argument("--explain", metavar="ID",
+                               help="show the registry entry for an exact invariant ID")
     ap.add_argument("--bindings", nargs="+", metavar="REPO",
                     help="implementation repo path(s) to scan for TestInvariant_<ID> "
                          "tests; reports which delegated invariants they bind")
     args = ap.parse_args()
+
+    if args.explain is not None:
+        for inv in REGISTRY:
+            if inv.id == args.explain:
+                print(f"Invariant: {inv.id}")
+                print(f"Section: {dict(SECTION_KEYS)[inv.section]}")
+                print(f"Anchor: {inv.anchor}")
+                print(f"Enforcement: {inv.binding}")
+                print(f"Expected evidence: {inv.note}")
+                return 0
+        print(f"Unknown invariant ID: {args.explain!r}. Use --list to see registered IDs.",
+              file=sys.stderr)
+        return 1
 
     if args.list:
         for inv in REGISTRY:
