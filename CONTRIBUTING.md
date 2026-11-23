@@ -63,11 +63,12 @@ what actually holds.
 
 Edits to the document fail the suite if they:
 
-- drop, repeat or reorder the nine required `##` sections. Additional `##`
-  sections are fine.
+- drop, repeat or reorder the nine required level-two sections. Additional
+  level-two sections are fine. Use `##` or underline the title with hyphens.
 - add a `###` heading inside one of the five layer sections. Each must carry
   exactly Protocol Tier, Orchestrator Tier and Frontend Tier, in that order.
-  Put new prose in the body of an existing tier.
+  Put new prose in the body of an existing tier. Headings inside fenced code
+  examples do not count as sections or tiers.
 - leave *The Lines That Cannot Be Crossed* with any count but twelve.
 - remove or reword a registered anchor phrase. Twenty-five invariants are
   anchored to the sections that carry them; run `--list` to see them, and
