@@ -42,6 +42,43 @@ class RequiredSectionTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
         self.assertIn("[PASS] D1 ", result.stdout)
 
+    def test_duplicate_headings_in_indented_and_setext_forms_fail(self):
+        for heading, expected in (
+            ("   ## Record Layer", "record layer"),
+            ("**REFERENCES**\n----------", "references"),
+            ("The Lines That\nCannot Be Crossed\n---", "the lines that cannot be crossed"),
+        ):
+            with self.subTest(heading=heading):
+                result = self.run_suite(f"{DOCUMENT}\n\n{heading}\n")
+                self.assertEqual(result.returncode, 1, result.stdout + result.stderr)
+                self.assertRegex(
+                    result.stdout,
+                    rf"(?m)^\[FAIL\] D1 .*duplicate required sections: {expected}$",
+                )
+
+    def test_required_sections_can_use_indented_or_setext_headings(self):
+        document = DOCUMENT.replace("## Introduction\n", "  ## Introduction\n", 1)
+        document = document.replace("## Record Layer\n", "Record Layer\n----\n", 1)
+        result = self.run_suite(document)
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+
+    def test_fenced_examples_do_not_count_as_sections_or_tiers(self):
+        for opener, shorter, closer in (
+            ("````markdown", "```", "````"),
+            ("~~~markdown", "~~", "~~~"),
+        ):
+            with self.subTest(opener=opener):
+                example = (
+                    f"\n{opener}\n## References\n### Example Tier\n"
+                    f"{shorter}\nIntroduction\n---\n## Record Layer\n{closer}\n"
+                )
+                document = DOCUMENT.replace("## Record Layer\n",
+                                            "## Record Layer\n" + example, 1)
+                result = self.run_suite(document)
+                self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+                self.assertIn("[PASS] D1 ", result.stdout)
+                self.assertIn("[PASS] D2 ", result.stdout)
+
     def test_missing_and_reordered_required_headings_still_fail(self):
         without_intro = DOCUMENT.replace("## Introduction\n", "## Supplement\n", 1)
         for document, diagnostic in (

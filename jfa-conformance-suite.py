@@ -228,22 +228,62 @@ class Result:
 
 
 def parse_document(doc):
-    """Split the document into '## ' sections, each holding its full text
-    and an ordered list of its '### ' subsection titles."""
+    """Split at level-two headings and collect each section's level-three titles.
+
+    Fenced code stays in the section text but contributes no headings.
+    """
+    atx_heading = re.compile(r"^ {0,3}(#{1,6})(?:[ \t]+(.*)|$)")
+    setext_underline = re.compile(r"^ {0,3}(-+|=+)[ \t]*$")
+    fence_opener = re.compile(r"^ {0,3}(`{3,}|~{3,})(.*)$")
+    other_block = re.compile(
+        r"^(?: {0,3}\t| {4}| {0,3}(?:>|<|(?:[-+*]|\d+[.)])(?:[ \t]|$)"
+        r"|(?:-[ \t]*){3,}$|(?:\*[ \t]*){3,}$|(?:_[ \t]*){3,}$))"
+    )
     sections = []
-    cur = None
+    section = None
+    paragraph = []
+    fence_closer = None
     for line in doc.splitlines():
-        m = re.match(r"^## (.+?)\s*$", line)
-        if m:
-            cur = {"title": m.group(1), "text": "", "subs": []}
-            sections.append(cur)
+        if fence_closer is not None:
+            if section is not None:
+                section["text"].append(line + "\n")
+            if fence_closer.fullmatch(line):
+                fence_closer = None
             continue
-        if cur is None:
-            continue
-        m = re.match(r"^### (.+?)\s*$", line)
-        if m:
-            cur["subs"].append(m.group(1))
-        cur["text"] += line + "\n"
+
+        fence = fence_opener.match(line)
+        heading = atx_heading.match(line)
+        underline = setext_underline.match(line)
+        level, title = 0, ""
+        if fence and (fence[1][0] == "~" or "`" not in fence[2]):
+            marker = fence[1]
+            fence_closer = re.compile(rf" {{0,3}}{marker[0]}{{{len(marker)},}}[ \t]*")
+            paragraph.clear()
+        elif heading:
+            level = len(heading[1])
+            title = re.sub(r"[ \t]+#+[ \t]*$", "", heading[2] or "").strip()
+            paragraph.clear()
+        elif underline:
+            if underline[1][0] == "-" and paragraph:
+                level, title = 2, " ".join(paragraph)
+                if section is not None:
+                    del section["text"][-len(paragraph):]
+            paragraph.clear()
+        elif not line.strip() or other_block.match(line):
+            paragraph.clear()
+        else:
+            paragraph.append(line.strip())
+
+        if level == 2:
+            section = {"title": title, "text": [], "subs": []}
+            sections.append(section)
+        elif section is not None:
+            if level == 3:
+                section["subs"].append(title)
+            section["text"].append(line + "\n")
+
+    for section in sections:
+        section["text"] = "".join(section["text"])
     return sections
 
 
