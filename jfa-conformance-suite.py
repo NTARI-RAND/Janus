@@ -578,21 +578,25 @@ def main():
     registry_view.add_argument("--list", action="store_true",
                                help="print the invariant registry")
     registry_view.add_argument("--explain", metavar="ID",
-                               help="show the registry entry for an exact invariant ID")
+                               help="show one invariant (hyphens or underscores)")
     ap.add_argument("--bindings", nargs="+", metavar="REPO",
                     help="implementation repo path(s) to scan for TestInvariant_<ID> "
                          "tests; reports which delegated invariants they bind")
     args = ap.parse_args()
 
     if args.explain is not None:
-        for inv in REGISTRY:
-            if inv.id == args.explain:
-                print(f"Invariant: {inv.id}")
-                print(f"Section: {dict(SECTION_KEYS)[inv.section]}")
-                print(f"Anchor: {inv.anchor}")
-                print(f"Enforcement: {inv.binding}")
-                print(f"Expected evidence: {inv.note}")
-                return 0
+        inv = next((entry for entry in REGISTRY if entry.id == args.explain), None)
+        if inv is None:
+            lookup_id = args.explain.replace("_", "-")
+            inv = next((entry for entry in REGISTRY
+                        if entry.id.replace("_", "-") == lookup_id), None)
+        if inv is not None:
+            print(f"Invariant: {inv.id}")
+            print(f"Section: {dict(SECTION_KEYS)[inv.section]}")
+            print(f"Anchor: {inv.anchor}")
+            print(f"Enforcement: {inv.binding}")
+            print(f"Expected evidence: {inv.note}")
+            return 0
         print(f"Unknown invariant ID: {args.explain!r}. Use --list to see registered IDs.",
               file=sys.stderr)
         return 1
@@ -601,7 +605,7 @@ def main():
         for inv in REGISTRY:
             print("%-22s section %-11s [%s] anchor='%s'"
                   % (inv.id, inv.section, inv.binding, inv.anchor))
-            print("        enforcement: %s" % inv.note)
+            print("        Expected evidence: %s" % inv.note)
         return 0
 
     all_ok = True
