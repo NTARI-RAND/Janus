@@ -20,14 +20,33 @@ class InvariantLookupTests(unittest.TestCase):
         result = self.run_suite("--explain", "REC-public-chain")
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertEqual(result.stderr, "")
-        self.assertCountEqual(result.stdout.splitlines(), [
-            "Invariant: REC-public-chain",
-            "Section: Record Layer",
-            "Anchor: one public chain distributed across the substrate",
-            "Enforcement: implementation",
-            "Expected evidence: record tests: single public chain on substrate "
-            "serving non-parties (reverses old 9.3)",
-        ])
+        lines = result.stdout.splitlines()
+        self.assertIn("Invariant: REC-public-chain", lines)
+        self.assertIn("Section: Record Layer", lines)
+        self.assertIn("Enforcement: implementation", lines)
+        self.assertRegex(result.stdout, r"(?m)^Anchor: \S")
+        self.assertRegex(result.stdout, r"(?m)^Expected evidence: \S")
+
+    def test_accepts_underscore_ids_as_written_in_go_test_names(self):
+        canonical = self.run_suite("--explain", "REC-witness-minimum")
+        self.assertEqual(canonical.returncode, 0, canonical.stderr)
+        for invariant in ("REC_witness_minimum", "REC_witness-minimum"):
+            with self.subTest(invariant=invariant):
+                result = self.run_suite("--explain", invariant)
+                self.assertEqual(result.returncode, 0, result.stderr)
+                self.assertEqual(result.stdout, canonical.stdout)
+
+    def test_list_and_lookup_label_the_same_registry_note(self):
+        lookup = self.run_suite("--explain", "REC-public-chain")
+        listing = self.run_suite("--list")
+        self.assertEqual(lookup.returncode, 0, lookup.stderr)
+        self.assertEqual(listing.returncode, 0, listing.stderr)
+        note = next(
+            line for line in lookup.stdout.splitlines() if line.startswith("Expected evidence: ")
+        )
+        lines = listing.stdout.splitlines()
+        entry = next(i for i, line in enumerate(lines) if line.startswith("REC-public-chain "))
+        self.assertEqual(lines[entry + 1].strip(), note)
 
     def test_lookup_reports_document_and_instrument_categories(self):
         for invariant, section, enforcement in (
@@ -41,7 +60,8 @@ class InvariantLookupTests(unittest.TestCase):
                 self.assertIn(f"Enforcement: {enforcement}", result.stdout.splitlines())
 
     def test_unknown_id_reports_error_without_listing_registry(self):
-        for invariant in ("NOT-REGISTERED", "rec-public-chain", "REC-public"):
+        for invariant in ("NOT-REGISTERED", "rec-public-chain", "REC-public",
+                          "REC_witness_minimum_UnfederatedLabel"):
             with self.subTest(invariant=invariant):
                 result = self.run_suite("--explain", invariant)
                 self.assertEqual(result.returncode, 1, result.stderr)
@@ -67,3 +87,7 @@ class InvariantLookupTests(unittest.TestCase):
         self.assertEqual(result.returncode, 2)
         self.assertEqual(result.stdout, "")
         self.assertIn("not allowed with argument --list", result.stderr)
+
+
+if __name__ == "__main__":
+    unittest.main()

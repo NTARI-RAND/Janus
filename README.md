@@ -79,10 +79,11 @@ python jfa-conformance-suite.py --bindings ../Cloudy [../other-repo ...]
                                                 # invariants those repos bind
 ```
 
-Use `--explain ID` to look up one case-sensitive invariant ID. It prints the
-official document section, anchor phrase, enforcement category, and expected
-evidence from the registry. If the ID is unknown, the command exits with
-status 1. Use `--list` to see all registered IDs.
+Use `--explain ID` to look up one case-sensitive invariant ID. You can use the
+registered spelling or the underscore spelling used in test names, such as
+`REC_public_chain`. The command prints the canonical ID, document section,
+anchor phrase, enforcement category, and expected evidence. An unknown ID
+exits with status 1. Use `--list` to see all registered IDs.
 
 `--bindings` scans implementation repositories you have cloned beside this one
 for test functions named `TestInvariant_<ID>_<Name>` (with any `-` in the ID

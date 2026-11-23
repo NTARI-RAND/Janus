@@ -42,12 +42,16 @@ git push --force-with-lease
 ```
 python jfa-conformance-suite.py                 # check the document
 python jfa-conformance-suite.py --list          # print the invariant registry
+python jfa-conformance-suite.py --explain REC_witness_minimum
 python jfa-conformance-suite.py --bindings ../Cloudy   # report which delegated
                                                        # invariants a repo binds
 ```
 
 Exit code 0 when every executed check passes, 1 otherwise. It runs on every
 pull request as the **Conformance** check and takes well under a second.
+
+Run the CLI regression tests locally with
+`python -m unittest -v test_jfa_conformance_suite`.
 
 To catch failures before you push, install the hook once in your clone:
 
