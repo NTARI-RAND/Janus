@@ -67,39 +67,62 @@ what actually holds.
 
 Choose one Go `TestInvariant_` function in an implementation checkout. Use a
 valid fixture and a synthetic fixture that violates the cited invariant.
+Generate both reports yourself in your own checkout. Reports attached to a pull
+request do not establish what ran. Use [Go 1.20 or later](https://go.dev/doc/go1.20),
+which emits the required package start event.
+
 Run the same function in the same package and checkout for both fixtures,
 preferably with an existing fixture selector. For example, if the test reads
-the `FIXTURE` environment variable, run these commands from its package:
+the `FIXTURE` environment variable, run these commands from its package in a
+POSIX shell (for example, Git Bash on Windows):
 
 ```sh
 FIXTURE=/path/to/valid.fixture go test -json -count=1 -run '^TestInvariant_REC_public_chain_Example$' . > /tmp/jfa-valid.json
 FIXTURE=/path/to/violating.fixture go test -json -count=1 -run '^TestInvariant_REC_public_chain_Example$' . > /tmp/jfa-violating.json
 ```
 
-The second Go command should fail on the invariant assertion. Check its
-output for the intended failure before using the comparison as evidence.
-From the Janus checkout, compare the recorded runs:
+In PowerShell 7, set `$env:FIXTURE` before each `go test` invocation and
+redirect its output to a writable path such as `$env:TEMP/jfa-valid.json` or
+`$env:TEMP/jfa-violating.json`. Reports must be UTF-8, with or without a BOM.
+Windows PowerShell 5.1 writes UTF-16 with `>`, so use PowerShell 7 or Git Bash.
+
+The second Go command should fail on the invariant assertion. From the Janus
+checkout, compare the recorded runs and check that failure for the intended
+assertion:
 
 ```sh
-python3 check-binding-fixtures.py --repo /path/to/implementation \
+python check-binding-fixtures.py --repo /path/to/implementation \
   --test TestInvariant_REC_public_chain_Example \
+  --expect 'expected a single shared head' \
   /tmp/jfa-valid.json /tmp/jfa-violating.json
 ```
 
 The command reports the citation separately from the two recorded outcomes.
 It checks both report package names against the cited test file's directory
-and the closest enclosing `go.mod` within the implementation checkout.
+and the closest enclosing `go.mod` within the implementation checkout. If the
+name is cited in multiple files, use `--path path/to/record_test.go` relative to
+`--repo` to select the file that was built with your Go configuration.
+
+Under each FAIL result, the command prints output attributed to the selected
+test and its subtests. The optional `--expect` takes a Python regular expression
+that must match that output when the violating run fails. Use an assertion
+specific to the invariant. Without `--expect`, inspect the failure yourself
+before treating a passing/failing pair as evidence.
+
 It returns 0 for a passing valid fixture and a failing violating fixture,
 1 for a completed pair with other outcomes, or 2 for inconclusive evidence
 such as a skipped test, missing citation, unknown or mismatched package, or
-incomplete report. The result describes one test and two supplied runs.
+incomplete report. A failure that does not match `--expect` is also inconclusive.
+The result describes one test and two supplied runs.
 Reviewers still interpret the failure and assess the implementation in its
 own repository. Both this command and the document checker read files only.
 The Go runs happen in the implementation checkout.
 
 Run the fixture-report regression tests with
-`python3 -m unittest -v test_binding_fixtures`. These tests use Go to generate
-reports from synthetic fixtures.
+`python -m unittest -v test_binding_fixtures`. These tests require Go 1.20 or
+later on PATH and generate reports from synthetic fixtures. The hosted
+**Conformance** check runs the document suite. It skips this command and its
+regression tests.
 
 ### What the suite constrains
 
