@@ -436,9 +436,13 @@ def check_project(path):
         if os.path.isfile(p):
             found = p
             break
+    folder = os.path.join(path, "open-questions")
+    if not found and os.path.isfile(os.path.join(folder, "README.md")):
+        return check_project_folder(path, folder)
     if not found:
         results.append(Result("P1 open-questions document exists", False,
-                              "none of: " + ", ".join(candidates)))
+                              "none of: " + ", ".join(
+                                  candidates + [os.path.join("open-questions", "README.md")])))
         return results
     text = io.open(found, encoding="utf-8", errors="replace").read()
     results.append(Result("P1 open-questions document exists", True, found))
@@ -454,6 +458,45 @@ def check_project(path):
     results.append(Result("P4 entries name inherited constraints", has_constraints,
                           "" if has_constraints else
                           "no constraints/lines language found"))
+    conf = os.path.join(path, "CONFORMANCE.md")
+    results.append(Result("P5 conformance self-description present", os.path.isfile(conf),
+                          conf if os.path.isfile(conf) else
+                          "CONFORMANCE.md absent (warning-level: required once the repo "
+                          "claims conformance)"))
+    return results
+
+
+def check_project_folder(path, folder):
+    """The folder form of the open-questions deliverable.
+
+    open-questions/README.md explains the list; every other Markdown file in
+    the folder is one question, so each file is one entry. P2-P4 read the
+    question files only: the README's template would otherwise satisfy the
+    status and constraint checks on its own. A folder with no question files
+    fails P2, as an empty single-file document does.
+    """
+    results = [Result("P1 open-questions document exists", True,
+                      os.path.join(folder, "README.md") + " (folder form)")]
+    files = sorted(f for f in os.listdir(folder)
+                   if f.lower().endswith(".md") and f.lower() != "readme.md"
+                   and os.path.isfile(os.path.join(folder, f)))
+    results.append(Result("P2 document has entries", bool(files),
+                          "%d question file%s" % (len(files), "" if len(files) == 1 else "s")))
+    texts = dict((f, normalize(io.open(os.path.join(folder, f), encoding="utf-8",
+                                       errors="replace").read())) for f in files)
+    no_status = [f for f in files if "status" not in texts[f]]
+    results.append(Result("P3 entries carry status", bool(files) and not no_status,
+                          "no question files" if not files else
+                          ("no 'status' language in: " + ", ".join(no_status)
+                           if no_status else "")))
+    no_constraints = [f for f in files
+                      if not ("constraint" in texts[f] or "invariant" in texts[f]
+                              or "inherits" in texts[f] or "line" in texts[f])]
+    results.append(Result("P4 entries name inherited constraints",
+                          bool(files) and not no_constraints,
+                          "no question files" if not files else
+                          ("no constraints/lines language in: " + ", ".join(no_constraints)
+                           if no_constraints else "")))
     conf = os.path.join(path, "CONFORMANCE.md")
     results.append(Result("P5 conformance self-description present", os.path.isfile(conf),
                           conf if os.path.isfile(conf) else
